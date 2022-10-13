@@ -1,20 +1,31 @@
-import 'dart:ui';
-
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/view/auth/login_screen.dart';
 import 'package:fitness/ui/view/auth/registration_screen.dart';
-import 'package:fitness/ui/view/widgets/custom_name_field.dart';
-import 'package:fitness/ui/view/widgets/custom_password_field.dart';
+import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/home_page.dart';
+
 import 'package:fitness/ui/view/widgets/custom_rounded_field.dart';
-import 'package:fitness/ui/view/widgets/custom_email_field.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
+
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final formKey = GlobalKey<FormState>();
+
+  final firstNameEditingController = new TextEditingController();
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController passwordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,68 +34,143 @@ class RegistrationScreen extends StatelessWidget {
         backgroundColor: Color(0xFFE5E5E5),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 40.h),
-                child: Image.asset("assets/register.png", width: 250.w),
-              ),
-
-              //textField widget
-              CustomName(hint: "Name", color: Colors.grey),
-              CustomEmail(
-                color: Colors.grey,
-                hint: 'E-mail',
-                inputType: TextInputType.emailAddress,
-                inputAction: TextInputAction.next,
-              ),
-              CustomEmail(
-                color: Colors.grey,
-                hint: 'Mobile No',
-                inputType: TextInputType.emailAddress,
-                inputAction: TextInputAction.next,
-              ),
-              CustomPassword(
-                hint: 'Password',
-                inputAction: TextInputAction.next,
-              ),
-
-              //rounded widget
-              InkWell(
-                onTap: () {
-                  Get.toNamed(bottonNavController);
-                },
-                child: RoundedButton(
-                  color: AppColors.backgroudColor,
-                  buttonName: 'Register',
+          child: Form(
+            key: formKey,
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 60.h),
+                  child: Image.asset("assets/login.png", width: 250.w),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text("Don't have an account? "),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
-                        },
-                        child: Text(
-                          "Login",
-                          style: style14,
-                        ),
-                      )
-                    ]),
-              ),
-            ],
+
+                //textField widget
+                SizedBox(
+                  height: 10.h,
+                ),
+                TextFormField(
+                    autofocus: false,
+                    controller: firstNameEditingController,
+                    keyboardType: TextInputType.name,
+                    validator: (value) {
+                      RegExp regex = new RegExp(r'^.{6,}$');
+                      if (value!.isEmpty) {
+                        return ("First Name cannot be Empty");
+                      }
+                      if (!regex.hasMatch(value)) {
+                        return ("Enter Valid name(Min. 6 Character)");
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      firstNameEditingController.text = value!;
+                    },
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.account_circle),
+                      contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      hintText: "Name",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    )),
+                SizedBox(
+                  height: 10.h,
+                ),
+                TextFormField(
+                  autofocus: false,
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return ("Please Enter Your Email");
+                    }
+                    // reg expression for email validation
+                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                        .hasMatch(value)) {
+                      return ("Please Enter a valid email");
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    emailController.text = value!;
+                  },
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.mail),
+                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    hintText: "Email",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                TextFormField(
+                    autofocus: false,
+                    controller: passwordController,
+                    obscureText: true,
+                    validator: (value) {
+                      RegExp regex = new RegExp(r'^.{6,}$');
+                      if (value!.isEmpty) {
+                        return ("Password is required for login");
+                      }
+                      if (!regex.hasMatch(value)) {
+                        return ("Enter Valid Password(Min. 6 Character)");
+                      }
+                    },
+                    onSaved: (value) {
+                      passwordController.text = value!;
+                    },
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.vpn_key),
+                      contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      hintText: "Password",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    )),
+                //rounded widget
+                InkWell(
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => BottonNavController()));
+                    }
+                  },
+                  child: RoundedButton(
+                    color: AppColors.backgroudColor,
+                    buttonName: 'Register',
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(top: 20.h),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Don't have an account? "),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
+                          },
+                          child: Text(
+                            "login",
+                            style: style14,
+                          ),
+                        )
+                      ]),
+                ),
+              ],
+            ),
           ),
         ),
       ),

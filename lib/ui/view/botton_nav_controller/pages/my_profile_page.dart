@@ -1,14 +1,81 @@
-
-
+import 'package:fitness/ui/const/colors.dart';
+import 'package:fitness/ui/style/style.dart';
+import 'package:fitness/ui/view/widgets/details/challenges-details.dart';
+import 'package:fitness/ui/view/widgets/details/profile_details.dart';
+import 'package:fitness/ui/view/widgets/tabs/related_tabs.dart';
+import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MyProfile extends StatelessWidget {
+class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
+
+  @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    tabController = TabController(length: 2, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("My Profile")),
+      backgroundColor: Color(0xFFE5E5),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 32.h, left: 16.w),
+                  child: Text("Good Morning,",
+                      style: TextStyle(fontSize: 24.sp, color: Colors.white)),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 15.h),
+              child: TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.grey,
+                indicatorWeight: 4,
+                labelStyle: style16,
+                controller: tabController,
+                tabs: [
+                  Tab(
+                    text: 'My Challenges',
+                  ),
+                  Tab(
+                    text: 'Profile Details',
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                children: [
+                  ChallengesDetails(),
+                  ProfileDetails(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

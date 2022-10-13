@@ -2,6 +2,7 @@ import 'package:fitness/ui/view/botton_nav_controller/pages/challanges_page.dart
 import 'package:fitness/ui/view/botton_nav_controller/pages/home_page.dart';
 import 'package:fitness/ui/view/botton_nav_controller/pages/media_page.dart';
 import 'package:fitness/ui/view/botton_nav_controller/pages/my_profile_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,6 +27,7 @@ class _BottonNavControllerState extends State<BottonNavController> {
     HomePage(),
     ChallangePage(),
     MediaPage(),
+    SearchBar(),
     MyProfile(),
   ];
 
@@ -58,6 +60,13 @@ class _BottonNavControllerState extends State<BottonNavController> {
               size: 20.sp,
             ),
             label: "Media",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search_outlined,
+              size: 25.sp,
+            ),
+            label: "Search",
           ),
           BottomNavigationBarItem(
             icon: Icon(
