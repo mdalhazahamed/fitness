@@ -24,7 +24,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final formKey = GlobalKey<FormState>();
 
   final firstNameEditingController = new TextEditingController();
-  final TextEditingController emailController = new TextEditingController();
+ final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
   @override
@@ -49,90 +49,90 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   height: 10.h,
                 ),
                 TextFormField(
-                    autofocus: false,
-                    controller: firstNameEditingController,
-                    keyboardType: TextInputType.name,
-                    validator: (value) {
-                      RegExp regex = new RegExp(r'^.{6,}$');
-                      if (value!.isEmpty) {
-                        return ("First Name cannot be Empty");
-                      }
-                      if (!regex.hasMatch(value)) {
-                        return ("Enter Valid name(Min. 6 Character)");
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      firstNameEditingController.text = value!;
-                    },
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.account_circle),
-                      contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                      hintText: "Name",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    )),
+        autofocus: false,
+        controller: firstNameEditingController,
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          RegExp regex = new RegExp(r'^.{6,}$');
+          if (value!.isEmpty) {
+            return ("First Name cannot be Empty");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("Enter Valid name(Min. 6 Character)");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          firstNameEditingController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Name",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        )),
                 SizedBox(
                   height: 10.h,
                 ),
-                TextFormField(
-                  autofocus: false,
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return ("Please Enter Your Email");
-                    }
-                    // reg expression for email validation
-                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                        .hasMatch(value)) {
-                      return ("Please Enter a valid email");
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    emailController.text = value!;
-                  },
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.mail),
-                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                    hintText: "Email",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
+               TextFormField(
+        autofocus: false,
+        controller: emailController,
+        keyboardType: TextInputType.emailAddress,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please Enter Your Email");
+          }
+          // reg expression for email validation
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+              .hasMatch(value)) {
+            return ("Please Enter a valid email");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          emailController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.mail),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Email",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        ),
                 SizedBox(
                   height: 10.h,
                 ),
-                TextFormField(
-                    autofocus: false,
-                    controller: passwordController,
-                    obscureText: true,
-                    validator: (value) {
-                      RegExp regex = new RegExp(r'^.{6,}$');
-                      if (value!.isEmpty) {
-                        return ("Password is required for login");
-                      }
-                      if (!regex.hasMatch(value)) {
-                        return ("Enter Valid Password(Min. 6 Character)");
-                      }
-                    },
-                    onSaved: (value) {
-                      passwordController.text = value!;
-                    },
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.vpn_key),
-                      contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                      hintText: "Password",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    )),
+                 TextFormField(
+        autofocus: false,
+        controller: passwordController,
+        obscureText: true,
+        validator: (value) {
+          RegExp regex = new RegExp(r'^.{6,}$');
+          if (value!.isEmpty) {
+            return ("Password is required for login");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("Enter Valid Password(Min. 6 Character)");
+          }
+        },
+        onSaved: (value) {
+          passwordController.text = value!;
+        },
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.vpn_key),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Password",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        )),
                 //rounded widget
                 InkWell(
                   onTap: () {
@@ -148,7 +148,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     buttonName: 'Register',
                   ),
                 ),
-
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(forgot);
+                      },
+                      child: Text(
+                        "Forget Password?",
+                        style: TextStyle(color: AppColors.backgroudColor),
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.h),
                   child: Row(

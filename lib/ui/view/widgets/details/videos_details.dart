@@ -230,7 +230,7 @@ class _VideosDetailsState extends State<VideosDetails>
                           labelColor: AppColors.greyColor,
                           indicatorColor: AppColors.backgroudColor,
                           indicatorWeight: 4,
-                          labelStyle: style16,
+                          labelStyle:  style16(Colors.black),
                           controller: tabController,
                           tabs: [
                             Tab(

@@ -3,6 +3,7 @@ import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ProfileDetails extends StatefulWidget {
@@ -23,17 +24,17 @@ class _ProfileDetailsState extends State<ProfileDetails> {
           //for circle avtar image
           _getHeader(),
           SizedBox(
-            height: 10,
+            height: 8.h,
           ),
           _profileName(
             "Md Alhaz Ahammed",
           ),
           SizedBox(
-            height: 14,
+            height: 10.h,
           ),
           _heading("Personal Details"),
           SizedBox(
-            height: 6,
+            height: 6.h,
           ),
           _detailsCard(),
 

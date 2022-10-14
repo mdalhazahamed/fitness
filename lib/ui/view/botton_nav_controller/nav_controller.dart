@@ -52,7 +52,7 @@ class _BottonNavControllerState extends State<BottonNavController> {
               FontAwesomeIcons.chartSimple,
               size: 25.sp,
             ),
-            label: "Shortcuts",
+            label: "Challeages",
           ),
           BottomNavigationBarItem(
             icon: Icon(

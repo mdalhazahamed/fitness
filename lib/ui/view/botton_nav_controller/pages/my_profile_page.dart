@@ -47,12 +47,13 @@ class _MyProfileState extends State<MyProfile>
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 15.h),
+              padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 15.h),
               child: TabBar(
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey,
                 indicatorWeight: 4,
-                labelStyle: style16,
+                indicatorColor: AppColors.backgroudColor,
+                labelStyle: style16(Colors.black),
                 controller: tabController,
                 tabs: [
                   Tab(
