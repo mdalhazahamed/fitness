@@ -10,7 +10,6 @@ class SearchBar extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 40.h,
         elevation: 0,
-        backgroundColor: Colors.white,
       ),
       body: SafeArea(
         child: Padding(
@@ -19,7 +18,6 @@ class SearchBar extends StatelessWidget {
             height: 52.h,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Color(0xF202835),
               borderRadius: BorderRadius.circular(6.r),
             ),
             child: Container(
@@ -30,7 +28,6 @@ class SearchBar extends StatelessWidget {
                   border: InputBorder.none,
                   prefixIcon: Icon(
                     Icons.search,
-                    color: Colors.grey,
                   ),
                   hintText: "Search videos podcasts or blog",
                   hintStyle: TextStyle(color: Colors.grey),

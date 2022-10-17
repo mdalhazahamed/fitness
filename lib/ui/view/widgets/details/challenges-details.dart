@@ -26,7 +26,7 @@ class ChallengesDetails extends StatelessWidget {
                   },
                   child: Text("see all",
                       style: TextStyle(
-                          color: AppColors.backgroudColor, fontSize: 16.sp)),
+                          color: AppColors.backgroudColor, fontSize: 15.sp)),
                 ),
               ],
             ),
@@ -135,7 +135,7 @@ class ChallengesDetails extends StatelessWidget {
                                 "Staying fit during",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.w500),
                               ),
                               Text(

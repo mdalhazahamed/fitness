@@ -10,7 +10,6 @@ class FavouriteDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           //background image
@@ -62,7 +61,7 @@ class FavouriteDetails extends StatelessWidget {
                   topRight: Radius.circular(Dimensions.radius20),
                   topLeft: Radius.circular(Dimensions.radius20),
                 ),
-                color: Colors.white,
+                color: Color(0xFF090D22),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,11 +92,14 @@ class FavouriteDetails extends StatelessWidget {
                           SizedBox(height: Dimensions.height15),
                           Text(
                             "Description",
-                            style: style24(FontWeight.w500),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 24.sp),
                           ),
-                          SizedBox(height: 5.h),
+                          SizedBox(height: 10.h),
                           Text(
                             "Food is the necessity of life. It provides nutrition, sustenance and growth to human body. Food can be classified into cereals, pulses, nuts and oilseeds, vegetable, fruits, milk and milk products and flesh food. Food comprises protein, facts, carbohydrates, vitamins, minerals salts and water. Most of the food items contain all these in varying properties. Oil and ghee are exclusively fats while sugarcane and starch contain high amount of carbohydrates. Accordingly, food items are termed as protein rich, vitamin rich, fat rich food etc",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 12.sp),
                           ),
                         ],
                       ),

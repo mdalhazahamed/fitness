@@ -56,6 +56,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                           child: Text(
                             contents[i].title,
                             style: TextStyle(
+                              color: Colors.white,
                               fontSize: 30.sp,
                               fontWeight: FontWeight.bold,
                             ),

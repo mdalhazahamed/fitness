@@ -34,7 +34,6 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE5E5),
       body: SafeArea(
         child: Column(
           children: [
@@ -43,7 +42,7 @@ class _HomePageState extends State<HomePage>
                 Padding(
                   padding: EdgeInsets.only(top: 32.h, left: 16.w),
                   child: Text("Good Morning,",
-                      style: TextStyle(fontSize: 24.sp, color: Colors.white)),
+                      style: TextStyle(fontSize: 20.sp, color: Colors.white)),
                 ),
               ],
             ),

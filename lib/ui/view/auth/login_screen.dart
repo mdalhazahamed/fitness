@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,21 +22,22 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   // editing controller
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFFE5E5E5),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: Form(
-            key: formKey,
+            key: _formKey,
             child: ListView(
               scrollDirection: Axis.vertical,
               children: [
@@ -47,74 +50,79 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 10.h,
                 ),
-                
-                SizedBox(
-                  height: 10.h,
-                ),
-               TextFormField(
-        autofocus: false,
-        controller: emailController,
-        keyboardType: TextInputType.emailAddress,
-        validator: (value) {
-          if (value!.isEmpty) {
-            return ("Please Enter Your Email");
-          }
-          // reg expression for email validation
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-              .hasMatch(value)) {
-            return ("Please Enter a valid email");
-          }
-          return null;
-        },
-        onSaved: (value) {
-          emailController.text = value!;
-        },
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Email",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-        ),
 
                 SizedBox(
                   height: 10.h,
                 ),
-              TextFormField(
-        autofocus: false,
-        controller: passwordController,
-        obscureText: true,
-        validator: (value) {
-          RegExp regex = new RegExp(r'^.{6,}$');
-          if (value!.isEmpty) {
-            return ("Password is required for login");
-          }
-          if (!regex.hasMatch(value)) {
-            return ("Enter Valid Password(Min. 6 Character)");
-          }
-        },
-        onSaved: (value) {
-          passwordController.text = value!;
-        },
-        textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Password",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        )),
+                TextFormField(
+                  autofocus: false,
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return ("Please Enter Your Email");
+                    }
+                    // reg expression for email validation
+                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                        .hasMatch(value)) {
+                      return ("Please Enter a valid email");
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    emailController.text = value!;
+                  },
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    hintText: "E-mail",
+                    hintStyle: TextStyle(
+                      fontSize: 15.sp,
+                    ),
+                    prefixIcon: Icon(Icons.email_outlined),
+                    prefixStyle: TextStyle(fontSize: 15.sp),
+                  ),
+                ),
+
+                SizedBox(height: 10.h),
+                TextFormField(
+                  autofocus: false,
+                  controller: passwordController,
+                  obscureText: true,
+                  validator: (value) {
+                    RegExp regex = new RegExp(r'^.{6,}$');
+                    if (value!.isEmpty) {
+                      return ("Password is required for login");
+                    }
+                    if (!regex.hasMatch(value)) {
+                      return ("Enter Valid Password(Min. 6 Character)");
+                    }
+                  },
+                  onSaved: (value) {
+                    passwordController.text = value!;
+                  },
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    hintText: "Password",
+                    hintStyle: TextStyle(
+                      fontSize: 15.sp,
+                    ),
+                    prefixIcon: Icon(Icons.lock_outline),
+                    prefixStyle: TextStyle(fontSize: 15.sp),
+                  ),
+                ),
+                SizedBox(height: 10.h),
                 //rounded widget
                 InkWell(
                   onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      Navigator.push(context,
-                          CupertinoPageRoute(builder: (context) => BottonNavController()));
-                    }
+                    signIn(emailController.text, passwordController.text);
                   },
                   child: RoundedButton(
                     color: AppColors.backgroudColor,
@@ -140,7 +148,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Don't have an account? "),
+                        Text(
+                          "Don't have an account? ",
+                          style: style14(Colors.black),
+                        ),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -151,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text(
                             "Register",
-                            style: style14,
+                            style: style14(Colors.black),
                           ),
                         )
                       ]),
@@ -162,5 +173,22 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+//login funcation
+
+  void signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                Fluttertoast.showToast(msg: "Login Successful"),
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => BottonNavController()))
+              })
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.maessage);
+      });
+    }
   }
 }

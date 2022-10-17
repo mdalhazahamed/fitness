@@ -121,18 +121,14 @@ class PopularDetails2 extends StatelessWidget {
                       children: [
                         Text(
                           "Andrew Suva",
-                          style:
-                              TextStyle(fontSize: 20.sp, color: Colors.white),
+                          style: style,
                         ),
                         SizedBox(height: 4.h),
                         Row(
                           children: [
                             Text(
                               "Senior Treiner",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                              ),
+                              style: style14(Colors.white),
                             ),
                             SizedBox(width: 6.w),
                             Icon(

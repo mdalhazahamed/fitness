@@ -10,12 +10,9 @@ class MediaPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Color(0xE5E5E5),
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
           bottom: TabBar(
-            labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
             tabs: [
               Tab(
@@ -31,11 +28,9 @@ class MediaPage extends StatelessWidget {
           child: TabBarView(
             children: [
               Container(
-                color: Colors.white,
                 child: MediaVideos(),
               ),
               Container(
-                color: Colors.white,
                 child: MediaPodcasts(),
               ),
             ],

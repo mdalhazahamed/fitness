@@ -27,6 +27,6 @@ class AppTheme {
         textTheme: GoogleFonts.actorTextTheme(
           Theme.of(context).textTheme.apply(),
         ),
-        scaffoldBackgroundColor: Colors.black,
+        scaffoldBackgroundColor: Color(0xFF090D22),
       );
 }

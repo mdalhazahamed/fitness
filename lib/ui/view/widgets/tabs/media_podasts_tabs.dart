@@ -13,12 +13,11 @@ class MediaPodcasts extends StatelessWidget {
       child: GridView.count(
         crossAxisCount: 2,
         shrinkWrap: true,
-        childAspectRatio: 0.84.h,
+        childAspectRatio: 0.71.w,
         children: [
           for (int i = 0; i < 4; i++)
             InkWell(
               onTap: () {
-                
                 Get.toNamed(videosDetails);
               },
               child: Container(
@@ -44,7 +43,8 @@ class MediaPodcasts extends StatelessWidget {
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
                       Text("Edward Mike",
-                          style: TextStyle(fontSize: 16.sp, color: Colors.white)),
+                          style:
+                              TextStyle(fontSize: 16.sp, color: Colors.white)),
                     ],
                   ),
                 ),

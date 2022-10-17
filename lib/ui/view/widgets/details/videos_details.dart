@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
-import 'package:fitness/ui/view/widgets/tabs/description_tabs.dart';
+
 import 'package:fitness/ui/view/widgets/tabs/related_tabs.dart';
 import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
 import 'package:flutter/material.dart';
@@ -255,7 +255,7 @@ class _VideosDetailsState extends State<VideosDetails>
                   children: [
                     RelatedTabs(),
                     ReviewsTabs(),
-                    DescriptionTabs(),
+                   
                   ],
                 ),
               )

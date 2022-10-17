@@ -1,3 +1,5 @@
+
+
 import 'package:fitness/ui/const/dimensions.dart';
 import 'package:fitness/ui/model/see_all.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,12 @@ class SeeAllProduct extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, size: 25.sp),
+        ),
         centerTitle: true,
         elevation: 0.5,
         backgroundColor: Colors.white,
