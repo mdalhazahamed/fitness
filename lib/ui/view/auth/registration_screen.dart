@@ -39,9 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroudImage(
-            image:
-                "https://img.freepik.com/premium-photo/middle-age-man-standing-strong-gym-flexing-muscles-muscular-athletic-bodybuilder-fitness-model-posing-after-exercises_600776-137.jpg?w=2000"),
+        BackgroudImage(image: "assets/logo2.jpg"),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SafeArea(
@@ -53,9 +51,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   scrollDirection: Axis.vertical,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 60.h),
+                      padding: EdgeInsets.symmetric(vertical: 40.h),
                     ),
-          
+                    Image.asset("assets/logo.png", height: 200.w),
+
                     //textField widget
                     SizedBox(
                       height: 10.h,
@@ -159,7 +158,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("Don't have an account? "),
+                            Text(
+                              "Don't have an account? ",
+                              style: style14(Colors.white),
+                            ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -169,7 +171,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               },
                               child: Text(
                                 "login",
-                                style: style14(Colors.black),
+                                style: style14(Colors.white),
                               ),
                             )
                           ]),

@@ -30,15 +30,15 @@ InputDecoration textFieldDecorcation(String hin, Icon icon,
       prefixStyle: TextStyle(fontSize: 15.sp),
     );
 
-InputDecoration myDecoration(hint,icon) => InputDecoration(
-   contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                      hintText: hint,
-                      border: InputBorder.none,
-                      fillColor: Colors.grey[600]?.withOpacity(0.5),
-                      filled: true,
-                      hintStyle: TextStyle(
-                        fontSize: 15.sp,
-                      ),
-                      prefixIcon:icon,
-                      prefixStyle: TextStyle(fontSize: 15.sp),
-);
+InputDecoration myDecoration(hint, icon) => InputDecoration(
+      contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+      hintText: hint,
+      border: InputBorder.none,
+      fillColor: Colors.grey[600]?.withOpacity(0.7),
+      filled: true,
+      hintStyle: TextStyle(
+        fontSize: 15.sp,
+      ),
+      prefixIcon: icon,
+      prefixStyle: TextStyle(fontSize: 15.sp),
+    );

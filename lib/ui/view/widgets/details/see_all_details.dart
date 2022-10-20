@@ -39,7 +39,7 @@ class SeeAllProduct extends StatelessWidget {
                 child: Container(
                   height: 90.h,
                   child: Card(
-                    color: Colors.black,
+                    color: Colors.white,
                     elevation: 0.8,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.w),

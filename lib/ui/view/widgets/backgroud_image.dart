@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BackgroudImage extends StatelessWidget {
   String image;
-   BackgroudImage({super.key, required this.image});
+  BackgroudImage({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,9 @@ class BackgroudImage extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-                image,),
+            image: AssetImage(
+              image,
+            ),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
           ),

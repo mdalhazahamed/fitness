@@ -34,9 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroudImage(
-            image:
-                "https://files.oyebesmartest.com/uploads/preview/insta-55872689-64ehqpepx2.jpeg"),
+        BackgroudImage(image: "assets/logo2.jpg"),
         SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -47,11 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
-                    Padding(padding: EdgeInsets.symmetric(vertical: 60.h)),
-        
+                    Padding(padding: EdgeInsets.symmetric(vertical: 40.h)),
+                    Image.asset("assets/logo.png", height: 200.w),
                     //textField widget
                     SizedBox(height: 10.h),
-        
+
                     TextFormField(
                       autofocus: false,
                       controller: emailController,
