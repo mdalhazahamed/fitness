@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/theme/app_theme.dart';
-import 'package:fitness/ui/theme/theme_manage.dart';
+import 'package:fitness/ui/view/auth/login_screen.dart';
+
 import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
 import 'package:fitness/ui/view/botton_nav_controller/pages/challanges_page.dart';
 import 'package:fitness/ui/view/botton_nav_controller/pages/home_page.dart';
@@ -19,44 +20,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-   await Firebase.initializeApp();
-  
-  runApp( MyApp());
+  await Firebase.initializeApp();
+
+  runApp(MyApp());
 }
-
-// ThemeManager _themeManager = ThemeManager();
-
-// class MyApp extends StatefulWidget {
-//   // This widget is the root of your application.
-//   @override
-//   _MyAppState createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp> {
-
-//   @override
-//   void dispose() {
-//     _themeManager.removeListener(themeListener);
-//     super.dispose();
-//   }
-
-//   @override
-//   void initState() {
-//     _themeManager.addListener(themeListener);
-//     super.initState();
-//   }
-
-//   themeListener(){
-//     if(mounted){
-//       setState(() {
-
-//       });
-//     }
-//   }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

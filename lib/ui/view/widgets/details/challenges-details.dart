@@ -108,13 +108,15 @@ class ChallengesDetails extends StatelessWidget {
 
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: EdgeInsets.only(left: 16.w),
-              child: Row(
-                children: [
-                  for (int i = 1; i < 10; i++)
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.w, top: 16.h),
+            child: Row(
+              children: [
+                for (int i = 1; i < 10; i++)
+                  Padding(
+                    padding: EdgeInsets.only(left: 16.w, top: 16.h),
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(videosDetails);
+                      },
                       child: Container(
                         width: 250.w,
                         height: 170.h,
@@ -147,8 +149,8 @@ class ChallengesDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
           ),
         ],

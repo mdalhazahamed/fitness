@@ -7,9 +7,11 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0XFF090D22),
       appBar: AppBar(
+        backgroundColor: Color(0XFF090D2),
         toolbarHeight: 40.h,
-        elevation: 0,
+        elevation: 1,
       ),
       body: SafeArea(
         child: Padding(
@@ -18,6 +20,7 @@ class SearchBar extends StatelessWidget {
             height: 52.h,
             width: double.infinity,
             decoration: BoxDecoration(
+              color: Color.fromARGB(255, 221, 214, 214),
               borderRadius: BorderRadius.circular(6.r),
             ),
             child: Container(
@@ -26,9 +29,7 @@ class SearchBar extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  prefixIcon: Icon(
-                    Icons.search,
-                  ),
+                  prefixIcon: Icon(Icons.search, color: Colors.grey),
                   hintText: "Search videos podcasts or blog",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),

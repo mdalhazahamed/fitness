@@ -34,6 +34,7 @@ class _BottonNavControllerState extends State<BottonNavController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     
       body: _page[_selectedInbox],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedInbox,

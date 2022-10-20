@@ -35,6 +35,7 @@ class _ChallangePageState extends State<ChallangePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0XFF090D22),
       body: SafeArea(
         child: Column(
           children: [

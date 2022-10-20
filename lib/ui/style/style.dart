@@ -15,13 +15,13 @@ TextStyle style24(fontWeight) =>
     TextStyle(fontWeight: fontWeight, fontSize: 24.sp);
 TextStyle style = TextStyle(color: Colors.white, fontSize: 18.sp);
 
-
-
-InputDecoration textFieldDecorcation(String hin, Icon icon, {required IconButton suffixIcon}) => InputDecoration(
-   contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-  border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+InputDecoration textFieldDecorcation(String hin, Icon icon,
+        {required IconButton suffixIcon}) =>
+    InputDecoration(
+      contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       hintText: hin,
       hintStyle: TextStyle(
         fontSize: 15.sp,
@@ -29,3 +29,16 @@ InputDecoration textFieldDecorcation(String hin, Icon icon, {required IconButton
       prefixIcon: icon,
       prefixStyle: TextStyle(fontSize: 15.sp),
     );
+
+InputDecoration myDecoration(hint,icon) => InputDecoration(
+   contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      hintText: hint,
+                      border: InputBorder.none,
+                      fillColor: Colors.grey[600]?.withOpacity(0.5),
+                      filled: true,
+                      hintStyle: TextStyle(
+                        fontSize: 15.sp,
+                      ),
+                      prefixIcon:icon,
+                      prefixStyle: TextStyle(fontSize: 15.sp),
+);

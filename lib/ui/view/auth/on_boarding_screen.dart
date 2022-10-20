@@ -28,9 +28,10 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+       backgroundColor: Color(0XFF090D22),
+      body: SafeArea(
+        child: Column(
           children: [
             SizedBox(height: 50.h),
             Expanded(

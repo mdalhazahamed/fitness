@@ -9,6 +9,7 @@ import 'package:fitness/ui/view/auth/login_screen.dart';
 import 'package:fitness/ui/view/auth/registration_screen.dart';
 import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
 import 'package:fitness/ui/view/botton_nav_controller/pages/home_page.dart';
+import 'package:fitness/ui/view/widgets/backgroud_image.dart';
 
 import 'package:fitness/ui/view/widgets/custom_rounded_field.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,174 +37,150 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color(0xFFE5E5E5),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 60.h),
-                  child: Image.asset("assets/login.png", width: 250.w),
-                ),
-
-                //textField widget
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextFormField(
-                  autofocus: false,
-                  controller: firstNameEditingController,
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    RegExp regex = new RegExp(r'^.{6,}$');
-                    if (value!.isEmpty) {
-                      return ("First Name cannot be Empty");
-                    }
-                    if (!regex.hasMatch(value)) {
-                      return ("Enter Valid name(Min. 6 Character)");
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    firstNameEditingController.text = value!;
-                  },
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: "Name",
-                    hintStyle: TextStyle(
-                      fontSize: 15.sp,
-                    ),
-                    prefixIcon: Icon(Icons.person_outline),
-                    prefixStyle: TextStyle(fontSize: 15.sp),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextFormField(
-                  autofocus: false,
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return ("Please Enter Your Email");
-                    }
-                    // reg expression for email validation
-                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                        .hasMatch(value)) {
-                      return ("Please Enter a valid email");
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    emailController.text = value!;
-                  },
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: "E-mail",
-                    hintStyle: TextStyle(
-                      fontSize: 15.sp,
-                    ),
-                    prefixIcon: Icon(Icons.email_outlined),
-                    prefixStyle: TextStyle(fontSize: 15.sp),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextFormField(
-                  autofocus: false,
-                  controller: passwordController,
-                  obscureText: true,
-                  validator: (value) {
-                    RegExp regex = new RegExp(r'^.{6,}$');
-                    if (value!.isEmpty) {
-                      return ("Password is required for login");
-                    }
-                    if (!regex.hasMatch(value)) {
-                      return ("Enter Valid Password(Min. 6 Character)");
-                    }
-                  },
-                  onSaved: (value) {
-                    passwordController.text = value!;
-                  },
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: "Password",
-                    hintStyle: TextStyle(
-                      fontSize: 15.sp,
-                    ),
-                    prefixIcon: Icon(Icons.lock_outline),
-                    prefixStyle: TextStyle(fontSize: 15.sp),
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                //rounded widget
-                InkWell(
-                  onTap: () {
-                    signUp(emailController.text, passwordController.text);
-                  },
-                  child: RoundedButton(
-                    color: AppColors.backgroudColor,
-                    buttonName: 'Register',
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+    return Stack(
+      children: [
+        BackgroudImage(
+            image:
+                "https://img.freepik.com/premium-photo/middle-age-man-standing-strong-gym-flexing-muscles-muscular-athletic-bodybuilder-fitness-model-posing-after-exercises_600776-137.jpg?w=2000"),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  scrollDirection: Axis.vertical,
                   children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 60.h),
+                    ),
+          
+                    //textField widget
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    TextFormField(
+                      autofocus: false,
+                      controller: firstNameEditingController,
+                      keyboardType: TextInputType.name,
+                      validator: (value) {
+                        RegExp regex = new RegExp(r'^.{6,}$');
+                        if (value!.isEmpty) {
+                          return ("First Name cannot be Empty");
+                        }
+                        if (!regex.hasMatch(value)) {
+                          return ("Enter Valid name(Min. 6 Character)");
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        firstNameEditingController.text = value!;
+                      },
+                      textInputAction: TextInputAction.next,
+                      decoration:
+                          myDecoration("Name", Icon(Icons.person_outline)),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    TextFormField(
+                      autofocus: false,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return ("Please Enter Your Email");
+                        }
+                        // reg expression for email validation
+                        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                            .hasMatch(value)) {
+                          return ("Please Enter a valid email");
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        emailController.text = value!;
+                      },
+                      textInputAction: TextInputAction.next,
+                      decoration:
+                          myDecoration("Email", Icon(Icons.email_outlined)),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    TextFormField(
+                      autofocus: false,
+                      controller: passwordController,
+                      obscureText: true,
+                      validator: (value) {
+                        RegExp regex = new RegExp(r'^.{6,}$');
+                        if (value!.isEmpty) {
+                          return ("Password is required for login");
+                        }
+                        if (!regex.hasMatch(value)) {
+                          return ("Enter Valid Password(Min. 6 Character)");
+                        }
+                      },
+                      onSaved: (value) {
+                        passwordController.text = value!;
+                      },
+                      textInputAction: TextInputAction.done,
+                      decoration:
+                          myDecoration("Password", Icon(Icons.lock_outline)),
+                    ),
+                    SizedBox(height: 10.h),
+                    //rounded widget
                     InkWell(
                       onTap: () {
-                        Get.toNamed(forgot);
+                        signUp(emailController.text, passwordController.text);
                       },
-                      child: Text(
-                        "Forget Password?",
-                        style: TextStyle(color: AppColors.backgroudColor),
+                      child: RoundedButton(
+                        color: AppColors.backgroudColor,
+                        buttonName: 'Register',
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(forgot);
+                          },
+                          child: Text(
+                            "Forget Password?",
+                            style: TextStyle(color: AppColors.backgroudColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.h),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Don't have an account? "),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginScreen()));
+                              },
+                              child: Text(
+                                "login",
+                                style: style14(Colors.black),
+                              ),
+                            )
+                          ]),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20.h),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Don't have an account? "),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
-                          },
-                          child: Text(
-                            "login",
-                            style: style14(Colors.black),
-                          ),
-                        )
-                      ]),
-                ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 

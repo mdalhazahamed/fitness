@@ -17,7 +17,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0XFF090D22),
       body: SafeArea(
           child: Column(
         children: [

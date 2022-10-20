@@ -1,5 +1,4 @@
-
-
+import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/const/dimensions.dart';
 import 'package:fitness/ui/model/see_all.dart';
 import 'package:flutter/material.dart';
@@ -11,20 +10,21 @@ class SeeAllProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0XFF090D22),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back, size: 25.sp),
+          icon:
+              Icon(Icons.arrow_back, size: 25, color: AppColors.backgroudColor),
         ),
         centerTitle: true,
         elevation: 0.5,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0XFF090D22),
         title: Text(
           "Videos",
-          style: TextStyle(fontSize: 18.sp, color: Colors.black),
+          style: TextStyle(fontSize: 18.sp, color: Colors.white),
         ),
       ),
       body: SafeArea(
@@ -35,11 +35,11 @@ class SeeAllProduct extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.0.h),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
                 child: Container(
                   height: 90.h,
                   child: Card(
+                    color: Colors.black,
                     elevation: 0.8,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.w),

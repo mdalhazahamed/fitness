@@ -33,6 +33,7 @@ class _MyProfileState extends State<MyProfile>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0XFF090D22),
       body: SafeArea(
         child: Column(
           children: [

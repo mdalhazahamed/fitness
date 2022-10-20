@@ -9,20 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class VideosDetails extends StatefulWidget {
-  const VideosDetails({Key? key}) : super(key: key);
+class ViewDetails extends StatefulWidget {
+  const ViewDetails({Key? key}) : super(key: key);
 
   @override
-  _VideosDetailsState createState() => _VideosDetailsState();
+  _ViewDetailsState createState() => _ViewDetailsState();
 }
 
-class _VideosDetailsState extends State<VideosDetails>
+class _ViewDetailsState extends State<ViewDetails>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -35,7 +35,7 @@ class _VideosDetailsState extends State<VideosDetails>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0XFF090D22),
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -51,6 +51,7 @@ class _VideosDetailsState extends State<VideosDetails>
                       width: double.infinity.w,
                       decoration: BoxDecoration(
                         image: DecorationImage(
+                          fit: BoxFit.cover,
                           image: NetworkImage(
                               "https://www.mensjournal.com/wp-content/uploads/mf/imgs-mesomorph-inarticle.gif"),
                         ),
@@ -134,40 +135,6 @@ class _VideosDetailsState extends State<VideosDetails>
                               ),
                             ],
                           ),
-                          SizedBox(height: 21.h),
-                          Row(
-                            children: [
-                              Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6.r),
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                        "https://pbs.twimg.com/profile_images/1485050791488483328/UNJ05AV8_400x400.jpg"),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 16.h),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Content Creator",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16.sp),
-                                  ),
-                                  SizedBox(height: 4.h),
-                                  Text(
-                                    "Profession",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 14.sp),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
                           SizedBox(height: 26.h),
                           Row(
                             children: [
@@ -208,6 +175,40 @@ class _VideosDetailsState extends State<VideosDetails>
                               SizedBox(height: 8.h),
                             ],
                           ),
+                          SizedBox(height: 21.h),
+                          Row(
+                            children: [
+                              Container(
+                                height: 60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        "https://pbs.twimg.com/profile_images/1485050791488483328/UNJ05AV8_400x400.jpg"),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 16.h),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Content Creator",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16.sp),
+                                  ),
+                                  SizedBox(height: 4.h),
+                                  Text(
+                                    "Profession",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14.sp),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -230,14 +231,11 @@ class _VideosDetailsState extends State<VideosDetails>
                           labelColor: AppColors.greyColor,
                           indicatorColor: AppColors.backgroudColor,
                           indicatorWeight: 4,
-                          labelStyle:  style16(Colors.black),
+                          labelStyle: style16(Colors.black),
                           controller: tabController,
                           tabs: [
                             Tab(
-                              text: "Description",
-                            ),
-                            Tab(
-                              text: 'Related Content',
+                              text: "Releted",
                             ),
                             Tab(
                               text: 'Reviews',
@@ -255,7 +253,6 @@ class _VideosDetailsState extends State<VideosDetails>
                   children: [
                     RelatedTabs(),
                     ReviewsTabs(),
-                   
                   ],
                 ),
               )
