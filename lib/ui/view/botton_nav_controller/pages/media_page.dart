@@ -1,6 +1,8 @@
-import 'package:fitness/ui/view/widgets/tabs/media_podasts_tabs.dart';
-import 'package:fitness/ui/view/widgets/tabs/media_videos_tabs.dart';
+import 'package:fitness/ui/view/widgets/tabs/grid_view_page.dart';
+
 import 'package:flutter/material.dart';
+
+
 
 class MediaPage extends StatelessWidget {
   const MediaPage({Key? key}) : super(key: key);
@@ -29,10 +31,10 @@ class MediaPage extends StatelessWidget {
           child: TabBarView(
             children: [
               Container(
-                child: MediaVideos(),
+                child: GridViewDetails(),
               ),
               Container(
-                child: MediaPodcasts(),
+                child: GridViewDetails(),
               ),
             ],
           ),

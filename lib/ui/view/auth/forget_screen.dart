@@ -18,45 +18,11 @@ class ForgotScreen extends StatefulWidget {
 
 class _ForgotScreenState extends State<ForgotScreen> {
   final formKey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
 
   final TextEditingController emailController = new TextEditingController();
 
-  int opt = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    registerAccount();
-  }
-
-  void registerAccount() {
-    if (opt == 0) {
-      FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: "alhazbci99@gmail.com",
-        password: "alhaz557699nci",
-      );
-    } else {
-      FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: "alhazbci99@gmail.com",
-        password: "alhaz557699bci",
-      );
-    }
-  }
-
-  void verifyEmail() {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (!(user!.emailVerified)) {
-      user.sendEmailVerification();
-    }
-  }
-
-  void sendRestPassword() {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    FirebaseAuth.instance.sendPasswordResetEmail(
-      email: user!.email.toString(),
-    );
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +71,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   SizedBox(height: 5.h),
                   InkWell(
                     onTap: () {
-                      verifyEmail();
+                       _auth.sendPasswordResetEmail(email: emailController.text);
                     },
                     child: RoundedButton(
                       color: AppColors.backgroudColor,

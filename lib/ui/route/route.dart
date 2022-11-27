@@ -4,9 +4,11 @@ import 'package:fitness/ui/view/auth/registration_screen.dart';
 import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
 import 'package:fitness/ui/view/botton_nav_controller/splash_screen.dart';
 import 'package:fitness/ui/view/widgets/details/favourite_details.dart';
-import 'package:fitness/ui/view/widgets/details/see_all_details.dart';
-import 'package:fitness/ui/view/widgets/details/view_details.dart';
+
 import 'package:get/get.dart';
+
+import '../view/botton_nav_controller/details_page.dart';
+import '../view/botton_nav_controller/see_all_product.dart';
 
 const String splash = '/splash_screen';
 const String login = '/login_screen';

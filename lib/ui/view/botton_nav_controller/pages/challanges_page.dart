@@ -1,13 +1,15 @@
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
-import 'package:fitness/ui/view/widgets/details/Popular_details.dart';
+
 import 'package:fitness/ui/view/widgets/details/challenges-details.dart';
-import 'package:fitness/ui/view/widgets/details/popular_product_2.dart';
+
 import 'package:fitness/ui/view/widgets/details/profile_details.dart';
-import 'package:fitness/ui/view/widgets/tabs/related_tabs.dart';
+
 import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../challanges_page_details.dart';
 
 class ChallangePage extends StatefulWidget {
   const ChallangePage({super.key});
@@ -74,9 +76,9 @@ class _ChallangePageState extends State<ChallangePage>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  PopularDetails(),
-                  PopularDetails2(),
-                  PopularDetails2(),
+                  ChallangesPageDetails(),
+                  ChallangesPageDetails(),
+                  ChallangesPageDetails(),
                 ],
               ),
             )

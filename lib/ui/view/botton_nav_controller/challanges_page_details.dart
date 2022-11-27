@@ -1,13 +1,13 @@
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
-import 'package:fitness/ui/view/widgets/details/see_all_details.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class PopularDetails2 extends StatelessWidget {
-  const PopularDetails2({super.key});
+class ChallangesPageDetails extends StatelessWidget {
+  const ChallangesPageDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,22 +63,25 @@ class PopularDetails2 extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 3.h),
-                                Text(
-                                  "Antonio",
-                                  style: style18,
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(top: 3.h, left: 22.w),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        size: 20.sp,
+                                        color: Color(0xFFF0BE3D),
+                                      ),
+                                      SizedBox(width: 5.w),
+                                      Text("4.9", style: style16(Colors.white))
+                                    ],
+                                  ),
                                 ),
+                                SizedBox(height: 20.h),
                                 Text(
-                                  "Guvan",
+                                  "Steak",
                                   style: style18,
-                                ),
-                                SizedBox(height: 5.h),
-                                Text(
-                                  "Senior Trainer",
-                                  style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500),
                                 )
                               ],
                             ),
@@ -93,64 +96,62 @@ class PopularDetails2 extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 24.h, left: 18.w),
             child: Text(
-              "All Results",
+              "More Meals",
               style: style22,
             ),
           ),
           Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 16.w, top: 16),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 60.h,
-                      width: 60.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6.r),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              "https://manofmany.com/wp-content/uploads/2021/01/Fitness-Trends-2021-c.jpg"),
+              for (int i = 1; i < 10; i++)
+                Padding(
+                  padding: EdgeInsets.only(left: 16.w, top: 16),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 60.h,
+                        width: 60.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6.r),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                "https://manofmany.com/wp-content/uploads/2021/01/Fitness-Trends-2021-c.jpg"),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 16.sp),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Andrew Suva",
-                          style: style,
-                        ),
-                        SizedBox(height: 4.h),
-                        Row(
-                          children: [
-                            Text(
-                              "Senior Treiner",
-                              style: style14(Colors.white),
-                            ),
-                            SizedBox(width: 6.w),
-                            Icon(
-                              Icons.circle,
-                              size: 8.sp,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 6.w),
-                            Text(
-                              "8 Trainings",
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16.sp,
+                      SizedBox(width: 16.sp),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Andrew Suva",
+                            style: style,
+                          ),
+                          SizedBox(height: 4.h),
+                          Row(
+                            children: [
+                              Text(
+                                "Senior Treiner",
+                                style: style14(Colors.white),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    )
-                  ],
+                              SizedBox(width: 6.w),
+                              Icon(
+                                Icons.circle,
+                                size: 6.sp,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 6.w),
+                              Text(
+                                "8 Trainings",
+                                style: style14(Colors.grey),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
             ],
           )
         ],

@@ -46,7 +46,9 @@ dependencies:
   cloud_firestore: ^3.5.1
   firebase_storage: ^10.3.11
   fluttertoast: ^8.1.1
-  basic_utils: ^5.4.0
+  
+  provider: ^6.0.4
+  basic_utils: ^5.4.2
   
 
 dev_dependencies:

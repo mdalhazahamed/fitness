@@ -2,10 +2,12 @@ import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/view/widgets/details/challenges-details.dart';
 import 'package:fitness/ui/view/widgets/details/profile_details.dart';
-import 'package:fitness/ui/view/widgets/tabs/related_tabs.dart';
+
 import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});

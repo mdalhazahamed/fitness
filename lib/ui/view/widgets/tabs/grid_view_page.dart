@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class MediaPodcasts extends StatelessWidget {
-  const MediaPodcasts({Key? key}) : super(key: key);
+class GridViewDetails extends StatelessWidget {
+  const GridViewDetails({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class MediaPodcasts extends StatelessWidget {
         shrinkWrap: true,
         childAspectRatio: 0.71.w,
         children: [
-          for (int i = 0; i < 4; i++)
+          for (int i = 0; i < 10; i++)
             InkWell(
               onTap: () {
                 Get.toNamed(videosDetails);

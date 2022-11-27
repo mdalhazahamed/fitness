@@ -2,11 +2,13 @@ import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/view/widgets/details/challenges-details.dart';
 import 'package:fitness/ui/view/widgets/details/profile_details.dart';
-import 'package:fitness/ui/view/widgets/tabs/media_videos_tabs.dart';
-import 'package:fitness/ui/view/widgets/tabs/related_tabs.dart';
+
+
 import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../widgets/tabs/grid_view_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -71,7 +73,7 @@ class _HomePageState extends State<HomePage>
                 controller: tabController,
                 children: [
                   ChallengesDetails(),
-                  MediaVideos(),
+                 GridViewDetails()
                 ],
               ),
             )
