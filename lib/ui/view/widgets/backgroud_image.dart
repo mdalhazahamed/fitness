@@ -16,7 +16,7 @@ class BackgroudImage extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
+            image: NetworkImage(
               image,
             ),
             fit: BoxFit.cover,

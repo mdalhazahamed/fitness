@@ -4,13 +4,13 @@ import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
 
 
-import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
+import 'package:fitness/ui/view/widgets/details/reviews_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ViewDetails extends StatefulWidget {
-  const ViewDetails({Key? key}) : super(key: key);
+  const ViewDetails(Map thisItem, {Key? key}) : super(key: key);
 
   @override
   _ViewDetailsState createState() => _ViewDetailsState();

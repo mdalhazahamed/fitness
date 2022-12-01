@@ -1,15 +1,17 @@
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/challenges/meal_page.dart';
 
-import 'package:fitness/ui/view/widgets/details/challenges-details.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/home/overview_page.dart';
 
 import 'package:fitness/ui/view/widgets/details/profile_details.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/challenges/quiz_page.dart';
 
-import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
+import 'package:fitness/ui/view/widgets/details/reviews_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../challanges_page_details.dart';
+import 'challenges/execrise_page.dart';
 
 class ChallangePage extends StatefulWidget {
   const ChallangePage({super.key});
@@ -76,9 +78,9 @@ class _ChallangePageState extends State<ChallangePage>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  ChallangesPageDetails(),
-                  ChallangesPageDetails(),
-                  ChallangesPageDetails(),
+                  MealPage(),
+                 ExecrisePage(),
+                 QuizPage (),
                 ],
               ),
             )

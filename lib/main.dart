@@ -2,10 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/theme/app_theme.dart';
 import 'package:fitness/ui/view/auth/login_screen.dart';
+import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/home_page.dart';
 
 import 'package:fitness/ui/view/botton_nav_controller/splash_screen.dart';
 
-import 'package:fitness/ui/view/widgets/details/challenges-details.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/home/overview_page.dart';
 import 'package:fitness/ui/view/widgets/details/favourite_details.dart';
 
 
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme().darkTheme(context),
             themeMode: ThemeMode.system,
             initialRoute: splash,
-            getPages: getPages,
+          getPages: getPages,
             home: SplashScreen(),
           );
         });

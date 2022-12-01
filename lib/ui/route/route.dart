@@ -7,8 +7,8 @@ import 'package:fitness/ui/view/widgets/details/favourite_details.dart';
 
 import 'package:get/get.dart';
 
-import '../view/botton_nav_controller/details_page.dart';
-import '../view/botton_nav_controller/see_all_product.dart';
+import '../view/widgets/details/details_page.dart';
+import '../view/botton_nav_controller/pages/home/see_all_product.dart';
 
 const String splash = '/splash_screen';
 const String login = '/login_screen';
@@ -28,7 +28,25 @@ List<GetPage> getPages = [
   GetPage(name: registration, page: () => RegistrationScreen()),
   GetPage(name: forgot, page: () => ForgotScreen()),
   GetPage(name: bottonNavController, page: () => BottonNavController()),
-  GetPage(name: videosDetails, page: () => ViewDetails()),
-  GetPage(name: favouriteDetails, page: () => FavouriteDetails()),
-  GetPage(name: seeAllProduct, page: () => SeeAllProduct()),
+  GetPage(
+    name: seeAllProduct,
+    page: () {
+      SeeAllProduct _seeAll = Get.arguments;
+      return _seeAll;
+    },
+  ),
+ GetPage(
+    name: seeAllProduct,
+    page: () {
+      SeeAllProduct _seeAll = Get.arguments;
+      return _seeAll;
+    },
+  ),
+   GetPage(
+    name: seeAllProduct,
+    page: () {
+      SeeAllProduct _seeAll = Get.arguments;
+      return _seeAll;
+    },
+  ),
 ];

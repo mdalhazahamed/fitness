@@ -1,8 +1,9 @@
-import 'package:fitness/ui/view/widgets/tabs/grid_view_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/home/bolg_page.dart';
 
 import 'package:flutter/material.dart';
 
-
+import 'media/podocast_page.dart';
+import 'media/video_page.dart';
 
 class MediaPage extends StatelessWidget {
   const MediaPage({Key? key}) : super(key: key);
@@ -31,10 +32,10 @@ class MediaPage extends StatelessWidget {
           child: TabBarView(
             children: [
               Container(
-                child: GridViewDetails(),
+                child: MediaVideoPage(),
               ),
               Container(
-                child: GridViewDetails(),
+                child: MediaPodcastPage(),
               ),
             ],
           ),

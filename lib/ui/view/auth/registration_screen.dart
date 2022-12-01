@@ -39,7 +39,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroudImage(image: "assets/logo2.jpg"),
+        BackgroudImage(
+            image:
+                "https://i.pinimg.com/222x/7a/11/b9/7a11b9f739c130eed437d1a237cc3b7d.jpg"),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SafeArea(
@@ -53,7 +55,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 40.h),
                     ),
-                    Image.asset("assets/logo.png", height: 200.w),
+                    Image.asset("assets/fitness.png", height: 200.w),
 
                     //textField widget
                     SizedBox(

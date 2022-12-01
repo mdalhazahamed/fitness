@@ -1,13 +1,14 @@
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
-import 'package:fitness/ui/view/widgets/details/challenges-details.dart';
-import 'package:fitness/ui/view/widgets/details/profile_details.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/home/overview_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/profile/my_challenges.dart';
 
-import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
+
+import 'package:fitness/ui/view/widgets/details/reviews_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
+import '../../widgets/details/profile_details.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
@@ -71,7 +72,7 @@ class _MyProfileState extends State<MyProfile>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  ChallengesDetails(),
+                  MyChallenges(),
                   ProfileDetails(),
                 ],
               ),

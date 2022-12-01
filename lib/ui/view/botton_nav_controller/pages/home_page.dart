@@ -1,14 +1,13 @@
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
-import 'package:fitness/ui/view/widgets/details/challenges-details.dart';
-import 'package:fitness/ui/view/widgets/details/profile_details.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/home/overview_page.dart';
 
 
-import 'package:fitness/ui/view/widgets/tabs/reviews_tabs.dart';
+import 'package:fitness/ui/view/widgets/details/reviews_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../widgets/tabs/grid_view_page.dart';
+import 'home/bolg_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -50,7 +49,7 @@ class _HomePageState extends State<HomePage>
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 15.h),
+              padding: EdgeInsets.symmetric(horizontal: 16.h),
               child: TabBar(
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey,
@@ -71,10 +70,7 @@ class _HomePageState extends State<HomePage>
             Expanded(
               child: TabBarView(
                 controller: tabController,
-                children: [
-                  ChallengesDetails(),
-                 GridViewDetails()
-                ],
+                children: [OverviewPage(), BolgPage()],
               ),
             )
           ],
