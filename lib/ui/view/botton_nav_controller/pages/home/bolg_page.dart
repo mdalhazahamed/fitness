@@ -54,7 +54,7 @@ class _BolgPageState extends State<BolgPage> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              Get.toNamed(videosDetails);
+              // Get.toNamed(videosDetails);
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),

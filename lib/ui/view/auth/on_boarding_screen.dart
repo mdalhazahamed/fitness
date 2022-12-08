@@ -95,7 +95,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                 child: Center(
                   child: Text(
                       currentIndex == contents.length - 1 ? "Continue" : "Next",
-                      style: style17),
+                      style: style18(Colors.white)),
                 ),
                 onPressed: () {
                   if (currentIndex == contents.length - 1) {

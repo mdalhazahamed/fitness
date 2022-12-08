@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/view/widgets/nav_home_callenges.dart';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../style/style.dart';
+import '../../details/favourite_details.dart';
 
 class MealPage extends StatefulWidget {
   const MealPage({super.key});
@@ -17,7 +19,7 @@ class MealPage extends StatefulWidget {
 class _MealPageState extends State<MealPage> {
   //collectionName
   final CollectionReference _refference =
-      FirebaseFirestore.instance.collection('callenges');
+      FirebaseFirestore.instance.collection('challenges');
 
   //queryName
 
@@ -26,7 +28,8 @@ class _MealPageState extends State<MealPage> {
 
   @override
   void initState() {
-    _futureDataMostPopularMeal = _refference.where('most_popular_meal', isEqualTo: true).get();
+    _futureDataMostPopularMeal =
+        _refference.where('most_popular_meal', isEqualTo: true).get();
     _futureDataMoreMEal = _refference.where('more_meal', isEqualTo: true).get();
 
     super.initState();
@@ -99,6 +102,8 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
             'rating': e['rating'],
             'total': e['total'],
             'food': e['food'],
+            'location': e['location'],
+            'description': e['description'],
           })
       .toList();
   return listItems;
@@ -113,9 +118,8 @@ ListView mostPopularMeal(List<Map<dynamic, dynamic>> items) {
       return Padding(
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
-          onTap: () {
-            // Get.toNamed(favouriteDetails);
-          },
+          onTap: () => Get.toNamed(favouriteDetails,
+              arguments: FavouriteDetails(calleages)),
           child: Container(
             width: 120.w,
             height: 200.h,
@@ -151,14 +155,14 @@ ListView mostPopularMeal(List<Map<dynamic, dynamic>> items) {
                         color: Color(0xFFF0BE3D),
                       ),
                       SizedBox(width: 5.w),
-                      Text(calleages['rating'], style: style16(Colors.white))
+                      Text(calleages['rating'], style: style18(Colors.white))
                     ],
                   ),
                 ),
                 SizedBox(height: 15.h),
                 Text(
                   calleages['food'],
-                  style: style18,
+                  style: style18(Colors.white),
                 )
               ],
             ),
@@ -181,7 +185,8 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
         child: Row(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () => Get.toNamed(favouriteDetails,
+                  arguments: FavouriteDetails(calleages)),
               child: Container(
                 height: 60.h,
                 width: 60.w,
@@ -200,14 +205,14 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
               children: [
                 Text(
                   calleages['name'],
-                  style: style,
+                  style: style18(Colors.white),
                 ),
                 SizedBox(height: 4.h),
                 Row(
                   children: [
                     Text(
                       calleages['position'],
-                      style: style14(Colors.white),
+                      style: style14,
                     ),
                     SizedBox(width: 6.w),
                     Icon(
@@ -220,12 +225,12 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
                       children: [
                         Text(
                           calleages['total'],
-                          style: style14(Colors.grey),
+                          style: style14,
                         ),
                         SizedBox(width: 5),
                         Text(
                           "Trainer",
-                          style: style14(Colors.grey),
+                          style: style14,
                         ),
                       ],
                     ),

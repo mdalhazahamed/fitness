@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/const/dimensions.dart';
-import 'package:fitness/ui/model/see_all.dart';
+
 import 'package:fitness/ui/route/route.dart';
-import 'package:fitness/ui/view/widgets/details/details_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,7 +21,7 @@ class _SeeAllProductState extends State<SeeAllProduct> {
   //collectionName
 
   final CollectionReference _refference =
-      FirebaseFirestore.instance.collection('videos');
+      FirebaseFirestore.instance.collection('all_products');
 
   //queryName
   late Future<QuerySnapshot> _futureDataNewestPodcast;
@@ -80,7 +80,7 @@ ListView forYouBuildGridview(List<Map<dynamic, dynamic>> shoppingItems) {
     itemBuilder: (_, i) {
       Map thisItem = shoppingItems[i];
       return InkWell(
-        onTap: () => Get.to(ViewDetails(thisItem)),
+        onTap: () => Get.to(DetailsPage(thisItem)),
         child: Container(
           height: 90.h,
           child: Card(

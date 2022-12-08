@@ -162,7 +162,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           children: <Widget>[
                             Text(
                               "Don't have an account? ",
-                              style: style14(Colors.white),
+                              style: style14,
                             ),
                             GestureDetector(
                               onTap: () {
@@ -173,7 +173,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               },
                               child: Text(
                                 "login",
-                                style: style14(Colors.white),
+                                style: style14,
                               ),
                             )
                           ]),

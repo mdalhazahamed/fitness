@@ -22,8 +22,6 @@ class _ForgotScreenState extends State<ForgotScreen> {
 
   final TextEditingController emailController = new TextEditingController();
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -71,7 +69,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   SizedBox(height: 5.h),
                   InkWell(
                     onTap: () {
-                       _auth.sendPasswordResetEmail(email: emailController.text);
+                      _auth.sendPasswordResetEmail(email: emailController.text.toString());
                     },
                     child: RoundedButton(
                       color: AppColors.backgroudColor,

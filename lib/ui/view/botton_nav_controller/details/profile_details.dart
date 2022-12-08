@@ -1,10 +1,16 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/theme/app_theme.dart';
+import 'package:fitness/ui/view/botton_nav_controller/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileDetails extends StatefulWidget {
   @override
@@ -13,6 +19,8 @@ class ProfileDetails extends StatefulWidget {
 
 class _ProfileDetailsState extends State<ProfileDetails> {
   RxBool darkMode = false.obs;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +47,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
           _detailsCard(),
 
           Spacer(),
-          logoutButton()
+          logoutButton(context)
         ],
       )),
     );
@@ -52,13 +60,16 @@ class _ProfileDetailsState extends State<ProfileDetails> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
-            height: 120,
-            width: 120,
+            height: 120.h,
+            width: 120.w,
             decoration: BoxDecoration(
                 //borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: AssetImage("assets/alhaz.png"))
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      "https://c4.wallpaperflare.com/wallpaper/451/590/341/look-face-hairstyle-profile-male-hd-wallpaper-preview.jpg",
+                    ))
                 // color: Colors.orange[100],
                 ),
           ),
@@ -101,44 +112,17 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             //row for each deatails
             ListTile(
               leading: Icon(Icons.email, color: Colors.white),
-              title: Text("alhazbci99@gmail.com",
-                  style: TextStyle(color: Colors.white)),
+              title: Text(
+                FirebaseAuth.instance.currentUser!.email.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             Divider(
               height: 0.6,
               color: Colors.white,
             ),
-            ListTile(
-              leading: Icon(Icons.phone, color: Colors.white),
-              title: Text("01776265012", style: TextStyle(color: Colors.white)),
-            ),
-            Divider(
-              height: 0.6,
-              color: Colors.white38,
-            ),
-            ListTile(
-              leading: Icon(Icons.language, color: Colors.white),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Eng-Ban",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Obx(
-                    () => Switch(
-                        value: darkMode.value,
-                        onChanged: (bool value) {
-                          Get.changeTheme(
-                            darkMode.value == false
-                                ? AppTheme().lightTheme(context)
-                                : AppTheme().darkTheme(context),
-                          );
-                        }),
-                  ),
-                ],
-              ),
-            ),
+           
+
             Divider(
               height: 0.6,
               color: Colors.white38,
@@ -170,11 +154,9 @@ class _ProfileDetailsState extends State<ProfileDetails> {
   }
 }
 
-Widget logoutButton() {
+Widget logoutButton(context) {
   return InkWell(
-    onTap: () {
-      Get.toNamed(login);
-    },
+    onTap: () => _onBackButtonPressed(context),
     child: Container(
         color: Color.fromARGB(255, 48, 6, 3),
         child: Padding(
@@ -195,4 +177,33 @@ Widget logoutButton() {
           ),
         )),
   );
+}
+
+Future<bool> _onBackButtonPressed(BuildContext context) async {
+  bool exitApp = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(
+            "Are you sure you want to log out?",
+            style: TextStyle(fontSize: 14.sp),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text("CENCEL"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => SplashScreen()));
+              },
+              child: Text("LOGOUT"),
+            ),
+          ],
+        );
+      });
+  return exitApp ?? false;
 }

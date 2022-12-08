@@ -34,7 +34,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroudImage(image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuCtT1HXR7y0CvTUMcAki5a3RYLnunp9-_YG2FDRSw4byJxe30yWYXzjg7PRD1lMSxvzk&usqp=CAU"),
+        BackgroudImage(
+            image:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuCtT1HXR7y0CvTUMcAki5a3RYLnunp9-_YG2FDRSw4byJxe30yWYXzjg7PRD1lMSxvzk&usqp=CAU"),
         SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -147,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: <Widget>[
                             Text(
                               "Don't have an account? ",
-                              style: style14(Colors.white),
+                              style: style14,
                             ),
                             GestureDetector(
                               onTap: () {
@@ -155,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               child: Text(
                                 "Register",
-                                style: style14(Colors.white),
+                                style: style14,
                               ),
                             )
                           ]),

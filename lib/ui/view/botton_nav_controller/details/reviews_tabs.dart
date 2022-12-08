@@ -30,7 +30,7 @@ class ReviewsTabs extends StatelessWidget {
                 padding: EdgeInsets.all(16.w),
                 child: Text(
                   "USers 01",
-                  style: style16(Colors.white54),
+            style: style18(Colors.white),
                 ),
               ),
               Row(

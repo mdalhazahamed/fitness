@@ -1,16 +1,70 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness/ui/const/colors.dart';
-import 'package:fitness/ui/const/dimensions.dart';
 import 'package:fitness/ui/style/style.dart';
+
+import 'package:fitness/ui/view/botton_nav_controller/details/reviews_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class FavouriteDetails extends StatelessWidget {
-  const FavouriteDetails(documentSnapshot, String collectionName, {super.key});
+import '../../../const/dimensions.dart';
+
+class FavouriteDetails extends StatefulWidget {
+  FavouriteDetails(this.favourite);
+
+  Map favourite;
+  @override
+  _FavouriteDetailsState createState() => _FavouriteDetailsState();
+}
+
+class _FavouriteDetailsState extends State<FavouriteDetails>
+    with SingleTickerProviderStateMixin {
+//add to favourite
+  addtoFavourite() async {
+    FirebaseFirestore.instance
+        .collection('challenges')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection("items")
+        .doc()
+        .set(
+      {
+        'img': widget.favourite['img'][0],
+        'location': widget.favourite['location'],
+        'description': widget.favourite['description'],
+
+        // 'fa-cost': widget.detailsData['list_cost'],
+      },
+    ).whenComplete(() {
+      Fluttertoast.showToast(
+          msg: "Added to favourite",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.deepOrange,
+          textColor: Colors.white,
+          fontSize: 13.0);
+    }).catchError((error) => print("Failed to add user: $error"));
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> checkFav(
+      BuildContext context) async* {
+    yield* FirebaseFirestore.instance
+        .collection("Users-Favourite")
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection("items")
+        .where("fav-image", isEqualTo: widget.favourite['img'][0])
+        .snapshots();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+        body: SafeArea(
+      child: Stack(
         children: [
           //background image
           Positioned(
@@ -21,7 +75,9 @@ class FavouriteDetails extends StatelessWidget {
               height: Dimensions.popularFoodImgSize,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: AssetImage("assets/alhaz2.jpeg")),
+                  fit: BoxFit.cover,
+                  image: NetworkImage(widget.favourite['img'][0]),
+                ),
               ),
             ),
           ),
@@ -33,15 +89,19 @@ class FavouriteDetails extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: AppColors.backgroudColor,
-                      size: 30.sp,
-                    ))
+                CircleAvatar(
+                  backgroundColor: Color.fromARGB(255, 236, 236, 236),
+                  child: Center(
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: AppColors.backgroudColor,
+                        )),
+                  ),
+                )
               ],
             ),
           ),
@@ -83,7 +143,7 @@ class FavouriteDetails extends StatelessWidget {
                               ),
                               SizedBox(width: 5.w),
                               Text(
-                                "Bosila, Dhaka",
+                                widget.favourite['location'],
                                 style: TextStyle(
                                     fontSize: 12.sp, color: Colors.grey),
                               )
@@ -97,9 +157,8 @@ class FavouriteDetails extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h),
                           Text(
-                            "Food is the necessity of life. It provides nutrition, sustenance and growth to human body. Food can be classified into cereals, pulses, nuts and oilseeds, vegetable, fruits, milk and milk products and flesh food. Food comprises protein, facts, carbohydrates, vitamins, minerals salts and water. Most of the food items contain all these in varying properties. Oil and ghee are exclusively fats while sugarcane and starch contain high amount of carbohydrates. Accordingly, food items are termed as protein rich, vitamin rich, fat rich food etc",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 12.sp),
+                            widget.favourite['description'],
+                            style: style14,
                           ),
                         ],
                       ),
@@ -112,6 +171,6 @@ class FavouriteDetails extends StatelessWidget {
           //exandabletext widget
         ],
       ),
-    );
+    ));
   }
 }

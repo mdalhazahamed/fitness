@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitness/ui/route/route.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/favourite_details.dart';
 import 'package:fitness/ui/view/widgets/nav_home_callenges.dart';
 
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class ExecrisePage extends StatefulWidget {
 class _ExecrisePageState extends State<ExecrisePage> {
   //collectionName
   final CollectionReference _refference =
-      FirebaseFirestore.instance.collection('callenges');
+      FirebaseFirestore.instance.collection('challenges');
 
   //queryName
 
@@ -57,7 +59,7 @@ class _ExecrisePageState extends State<ExecrisePage> {
                   }
                   if (snapshot.hasData) {
                     List<Map> items = parseData(snapshot.data);
-                    return mostPopularMeal(items);
+                    return bestExcise(items);
                   }
                   return Center(child: CircularProgressIndicator());
                 }),
@@ -78,7 +80,7 @@ class _ExecrisePageState extends State<ExecrisePage> {
                   }
                   if (snapshot.hasData) {
                     List<Map> items = parseData(snapshot.data);
-                    return moreMeal(items);
+                    return allResult(items);
                   }
                   return Center(child: CircularProgressIndicator());
                 }),
@@ -100,23 +102,24 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
             'rating': e['rating'],
             'total': e['total'],
             'food': e['food'],
+              'location': e['location'],
+            'description': e['description'],
           })
       .toList();
   return listItems;
 }
 
-ListView mostPopularMeal(List<Map<dynamic, dynamic>> items) {
+ListView bestExcise(List<Map<dynamic, dynamic>> items) {
   return ListView.builder(
     scrollDirection: Axis.horizontal,
     itemCount: items.length,
     itemBuilder: (_, i) {
-      Map calleages = items[i];
+      Map thisItem = items[i];
       return Padding(
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
-          onTap: () {
-            // Get.toNamed(favouriteDetails);
-          },
+          onTap: () => Get.toNamed(favouriteDetails,
+              arguments: FavouriteDetails(thisItem)),
           child: Container(
             width: 120.w,
             height: 200.h,
@@ -136,25 +139,24 @@ ListView mostPopularMeal(List<Map<dynamic, dynamic>> items) {
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          calleages['img'][0],
+                          thisItem['img'][0],
                         ),
                       ),
                     ),
                   ),
                 ),
-                
-               Column(
+                Column(
                   children: [
                     SizedBox(height: 2.w),
-                    Text(calleages['name'],
+                    Text(thisItem['name'],
                         style: TextStyle(fontSize: 18.sp, color: Colors.white)),
-                    Text(calleages['nickname'],
+                    Text(thisItem['nickname'],
                         style: TextStyle(fontSize: 15.sp, color: Colors.white)),
                   ],
                 ),
                 SizedBox(height: 10.h),
                 Text(
-                  calleages['position'],
+                  thisItem['position'],
                   style: TextStyle(fontSize: 12.sp, color: Colors.white),
                 )
               ],
@@ -166,7 +168,7 @@ ListView mostPopularMeal(List<Map<dynamic, dynamic>> items) {
   );
 }
 
-ListView moreMeal(List<Map<dynamic, dynamic>> items) {
+ListView allResult(List<Map<dynamic, dynamic>> items) {
   return ListView.builder(
     //physics: NeverScrollableScrollPhysics(),
     scrollDirection: Axis.vertical,
@@ -178,7 +180,8 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
         child: Row(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () => Get.toNamed(favouriteDetails,
+                  arguments: FavouriteDetails(calleages)),
               child: Container(
                 height: 60.h,
                 width: 60.w,
@@ -197,14 +200,14 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
               children: [
                 Text(
                   calleages['name'],
-                  style: style,
+                  style: style18(Colors.white),
                 ),
                 SizedBox(height: 4.h),
                 Row(
                   children: [
                     Text(
                       calleages['position'],
-                      style: style14(Colors.white),
+                      style: style14,
                     ),
                     SizedBox(width: 6.w),
                     Icon(
@@ -217,12 +220,12 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
                       children: [
                         Text(
                           calleages['total'],
-                          style: style14(Colors.grey),
+                          style: style14,
                         ),
                         SizedBox(width: 5),
                         Text(
                           "Trainer",
-                          style: style14(Colors.grey),
+                          style: style14,
                         ),
                       ],
                     ),

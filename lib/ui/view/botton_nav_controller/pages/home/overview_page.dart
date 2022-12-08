@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:fitness/ui/route/route.dart';
-import 'package:fitness/ui/view/widgets/details/details_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/details_page.dart';
 
 import 'package:fitness/ui/view/botton_nav_controller/pages/home/see_all_product.dart';
 import 'package:fitness/ui/view/widgets/nav_home-categories.dart';
@@ -19,19 +19,18 @@ class OverviewPage extends StatefulWidget {
 class _OverviewPageState extends State<OverviewPage> {
   //collectionName
   final CollectionReference _refference =
-      FirebaseFirestore.instance.collection('videos');
+      FirebaseFirestore.instance.collection('all_products');
 
   //queryName
   late Future<QuerySnapshot> _futureDataNewestPodcast;
   late Future<QuerySnapshot> _futureDataRecommededVideos;
 
-
   @override
   void initState() {
     _futureDataNewestPodcast =
         _refference.where('newest_podcast', isEqualTo: true).get();
-    
-_futureDataRecommededVideos =
+
+    _futureDataRecommededVideos =
         _refference.where('recommended_videos', isEqualTo: true).get();
 
     super.initState();
@@ -106,6 +105,8 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
             'date': e['date'],
             'subtitle': e['subtitle'],
             'title': e['title'],
+            'like': e['like'],
+            'rating': e['rating'],
           })
       .toList();
   return listItems;
@@ -121,7 +122,7 @@ ListView newestPodcast(List<Map<dynamic, dynamic>> items) {
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
           onTap: () =>
-              Get.toNamed(videosDetails, arguments: ViewDetails(thisItem)),
+              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 140.h,
@@ -184,7 +185,7 @@ ListView recommendedVideos(List<Map<dynamic, dynamic>> items) {
         padding: EdgeInsets.only(right: 14.w),
         child: InkWell(
           onTap: () =>
-              Get.toNamed(videosDetails, arguments: ViewDetails(thisItem)),
+              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 170.h,

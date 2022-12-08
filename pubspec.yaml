@@ -46,6 +46,9 @@ dependencies:
   cloud_firestore: ^3.5.1
   firebase_storage: ^10.3.11
   fluttertoast: ^8.1.1
+  image_picker: ^0.8.6
+  better_player: ^0.0.83
+  get_storage: ^2.0.3
   
   provider: ^6.0.4
   basic_utils: ^5.4.2

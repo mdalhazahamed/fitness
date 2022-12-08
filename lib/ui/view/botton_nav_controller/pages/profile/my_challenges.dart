@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:fitness/ui/route/route.dart';
-import 'package:fitness/ui/view/widgets/details/details_page.dart';
+import 'package:fitness/ui/style/style.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/details_page.dart';
 
 import 'package:fitness/ui/view/botton_nav_controller/pages/home/see_all_product.dart';
 import 'package:fitness/ui/view/widgets/nav_home-categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+
 
 class MyChallenges extends StatefulWidget {
   const MyChallenges({super.key});
@@ -19,7 +22,7 @@ class MyChallenges extends StatefulWidget {
 class _MyChallengesState extends State<MyChallenges> {
   //collectionName
   final CollectionReference _refference =
-      FirebaseFirestore.instance.collection('videos');
+      FirebaseFirestore.instance.collection('all_products');
 
   //queryName
   late Future<QuerySnapshot> _futureDataMeal;
@@ -42,14 +45,14 @@ class _MyChallengesState extends State<MyChallenges> {
       child: Column(
         children: [
           //tabs
+          SizedBox(height: 20.h),
+
           Padding(
             padding: EdgeInsets.only(top: 30.h),
             child: navHomeCategories(
               "Meal",
-              () {
-                () => Get.toNamed(seeAllProduct,
-                    arguments: SeeAllProduct('profile_meal'));
-              },
+              () => Get.toNamed(seeAllProduct,
+                  arguments: SeeAllProduct('profile_meal')),
             ),
           ),
           SizedBox(height: 16.h),
@@ -72,7 +75,8 @@ class _MyChallengesState extends State<MyChallenges> {
           SizedBox(height: 20.h),
           navHomeCategories(
             "Execrise",
-            () {},
+            () => Get.toNamed(seeAllProduct,
+                arguments: SeeAllProduct('profile_exercise')),
           ),
           SizedBox(height: 16.h),
 
@@ -92,10 +96,12 @@ class _MyChallengesState extends State<MyChallenges> {
                   return Center(child: CircularProgressIndicator());
                 }),
           ),
+
           SizedBox(height: 16.h),
           navHomeCategories(
             "Quiz",
-            () {},
+            () => Get.toNamed(seeAllProduct,
+                arguments: SeeAllProduct('profile_quiz')),
           ),
 
           SizedBox(height: 16.h),
@@ -132,6 +138,8 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
             'date': e['date'],
             'subtitle': e['subtitle'],
             'title': e['title'],
+             'like': e['like'],
+            'rating': e['rating'],
           })
       .toList();
   return listItems;
@@ -147,7 +155,7 @@ ListView mealPodcast(List<Map<dynamic, dynamic>> items) {
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
           onTap: () =>
-              Get.toNamed(videosDetails, arguments: ViewDetails(thisItem)),
+              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 140.h,
@@ -166,10 +174,7 @@ ListView mealPodcast(List<Map<dynamic, dynamic>> items) {
                 children: [
                   Text(
                     thisItem['title'],
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
+                    style: style18(Colors.white)
                   ),
                   Text(
                     thisItem['subtitle'],
@@ -210,7 +215,7 @@ ListView exercisePodcast(List<Map<dynamic, dynamic>> items) {
         padding: EdgeInsets.only(right: 14.w),
         child: InkWell(
           onTap: () =>
-              Get.toNamed(videosDetails, arguments: ViewDetails(thisItem)),
+              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 170.h,
@@ -229,14 +234,11 @@ ListView exercisePodcast(List<Map<dynamic, dynamic>> items) {
                 children: [
                   Text(
                     thisItem['title'],
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
+                    style: style18(Colors.white)
                   ),
                   Text(
                     thisItem['date'],
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                    style: style14
                   ),
                 ],
               ),
@@ -258,7 +260,7 @@ ListView quizPodcast(List<Map<dynamic, dynamic>> items) {
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
           onTap: () =>
-              Get.toNamed(videosDetails, arguments: ViewDetails(thisItem)),
+              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 140.h,
@@ -277,10 +279,7 @@ ListView quizPodcast(List<Map<dynamic, dynamic>> items) {
                 children: [
                   Text(
                     thisItem['title'],
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
+                    style: style18(Colors.white)
                   ),
                   Text(
                     thisItem['subtitle'],

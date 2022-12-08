@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../route/route.dart';
 import '../../../../style/style.dart';
+import '../../details/favourite_details.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -17,7 +19,7 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   //collectionName
   final CollectionReference _refference =
-      FirebaseFirestore.instance.collection('callenges');
+      FirebaseFirestore.instance.collection('challenges');
 
   //queryName
 
@@ -39,6 +41,16 @@ class _QuizPageState extends State<QuizPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(mainMenu);
+              },
+              child: Text(
+                "Quiz Now",
+              ),
+            ),
+          ),
           SizedBox(height: 10.h),
           navHomeCallenges(
             "Best Quiz Results",
@@ -57,7 +69,7 @@ class _QuizPageState extends State<QuizPage> {
                   }
                   if (snapshot.hasData) {
                     List<Map> items = parseData(snapshot.data);
-                    return mostPopularMeal(items);
+                    return bestQuiz(items);
                   }
                   return Center(child: CircularProgressIndicator());
                 }),
@@ -78,7 +90,7 @@ class _QuizPageState extends State<QuizPage> {
                   }
                   if (snapshot.hasData) {
                     List<Map> items = parseData(snapshot.data);
-                    return moreMeal(items);
+                    return allResult(items);
                   }
                   return Center(child: CircularProgressIndicator());
                 }),
@@ -100,12 +112,14 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
             'rating': e['rating'],
             'total': e['total'],
             'food': e['food'],
+              'location': e['location'],
+            'description': e['description'],
           })
       .toList();
   return listItems;
 }
 
-ListView mostPopularMeal(List<Map<dynamic, dynamic>> items) {
+ListView bestQuiz(List<Map<dynamic, dynamic>> items) {
   return ListView.builder(
     scrollDirection: Axis.horizontal,
     itemCount: items.length,
@@ -114,9 +128,8 @@ ListView mostPopularMeal(List<Map<dynamic, dynamic>> items) {
       return Padding(
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
-          onTap: () {
-            // Get.toNamed(favouriteDetails);
-          },
+          onTap: () => Get.toNamed(favouriteDetails,
+              arguments: FavouriteDetails(calleages)),
           child: Container(
             width: 120.w,
             height: 200.h,
@@ -165,7 +178,7 @@ ListView mostPopularMeal(List<Map<dynamic, dynamic>> items) {
   );
 }
 
-ListView moreMeal(List<Map<dynamic, dynamic>> items) {
+ListView allResult(List<Map<dynamic, dynamic>> items) {
   return ListView.builder(
     //physics: NeverScrollableScrollPhysics(),
     scrollDirection: Axis.vertical,
@@ -177,7 +190,8 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
         child: Row(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () => Get.toNamed(favouriteDetails,
+                  arguments: FavouriteDetails(calleages)),
               child: Container(
                 height: 60.h,
                 width: 60.w,
@@ -196,14 +210,14 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
               children: [
                 Text(
                   calleages['name'],
-                  style: style,
+                  style: style18(Colors.white),
                 ),
                 SizedBox(height: 4.h),
                 Row(
                   children: [
                     Text(
                       calleages['position'],
-                      style: style14(Colors.white),
+                      style: style14,
                     ),
                     SizedBox(width: 6.w),
                     Icon(
@@ -216,12 +230,12 @@ ListView moreMeal(List<Map<dynamic, dynamic>> items) {
                       children: [
                         Text(
                           calleages['total'],
-                          style: style14(Colors.grey),
+                          style: style14,
                         ),
                         SizedBox(width: 5),
                         Text(
                           "Trainer",
-                          style: style14(Colors.grey),
+                          style: style14,
                         ),
                       ],
                     ),
