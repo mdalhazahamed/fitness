@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../details/video_details_page.dart';
+
 class MediaVideoPage extends StatefulWidget {
   const MediaVideoPage({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class MediaVideoPage extends StatefulWidget {
 
 class _MediaVideoPageState extends State<MediaVideoPage> {
   final CollectionReference _refference =
-      FirebaseFirestore.instance.collection('videos');
+      FirebaseFirestore.instance.collection('all_products');
 
   //queryName
   late Future<QuerySnapshot> _futureDataMediaVideos;
@@ -59,10 +61,15 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
   List<Map> listItems = listDocs
       .map((e) => {
             'img': e['img'],
+            'profile_img': e['profile_img'],
+            'videos': e['videos'],
+            'position': e['position'],
             'name': e['name'],
             'date': e['date'],
             'subtitle': e['subtitle'],
             'title': e['title'],
+            'like': e['like'],
+            'rating': e['rating'],
           })
       .toList();
   return listItems;
@@ -77,30 +84,34 @@ GridView newestPodcast(List<Map<dynamic, dynamic>> items) {
     ),
     itemBuilder: (_, i) {
       Map thisItem = items[i];
-      return Container(
-        padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
-        margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6.r),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage((thisItem['img'][0])),
+      return InkWell(
+        onTap: () => Get.toNamed(videosDetailsPage,
+            arguments: VideoDetailsPage(thisItem)),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+          margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6.r),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage((thisItem['img'])),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.only(bottom: 48.h, left: 16.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(thisItem['title'],
-                  style: TextStyle(
-                      fontSize: 20.sp,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)),
-              Text(thisItem['subtitle'],
-                  style: TextStyle(fontSize: 16.sp, color: Colors.white)),
-            ],
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 48.h, left: 16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(thisItem['title'],
+                    style: TextStyle(
+                        fontSize: 20.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+                Text(thisItem['subtitle'],
+                    style: TextStyle(fontSize: 16.sp, color: Colors.white)),
+              ],
+            ),
           ),
         ),
       );

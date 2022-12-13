@@ -14,6 +14,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../../../busness_logic/auth.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -48,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   scrollDirection: Axis.vertical,
                   children: [
                     Padding(padding: EdgeInsets.symmetric(vertical: 40.h)),
-                    Image.asset("assets/fitness.png", height: 200.w),
+                    Image.network("https://firebasestorage.googleapis.com/v0/b/fitness-f7af3.appspot.com/o/onboariding_image%2Ffitness.png?alt=media&token=3cdc24d2-c13b-4507-bcfc-4620b031abc1", height: 200.w),
                     //textField widget
                     SizedBox(height: 10.h),
 
@@ -121,7 +123,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     //rounded widget
                     InkWell(
                       onTap: () {
-                        signIn(emailController.text, passwordController.text);
+                       if(_formKey.currentState!.validate()){
+                           Auth().login(emailController.text,
+                            passwordController.text, context);
+                        }
                       },
                       child: RoundedButton(
                         color: AppColors.backgroudColor,
@@ -174,18 +179,4 @@ class _LoginScreenState extends State<LoginScreen> {
 
 //login funcation
 
-  void signIn(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-                Fluttertoast.showToast(msg: "Login Successful"),
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => BottonNavController()))
-              })
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.maessage);
-      });
-    }
-  }
 }

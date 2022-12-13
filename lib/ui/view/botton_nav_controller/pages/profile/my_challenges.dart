@@ -2,15 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
-import 'package:fitness/ui/view/botton_nav_controller/details/details_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/video_details_page.dart';
 
 import 'package:fitness/ui/view/botton_nav_controller/pages/home/see_all_product.dart';
 import 'package:fitness/ui/view/widgets/nav_home-categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-
 
 class MyChallenges extends StatefulWidget {
   const MyChallenges({super.key});
@@ -45,10 +43,9 @@ class _MyChallengesState extends State<MyChallenges> {
       child: Column(
         children: [
           //tabs
-          SizedBox(height: 20.h),
 
           Padding(
-            padding: EdgeInsets.only(top: 30.h),
+            padding: EdgeInsets.only(top: 10.h),
             child: navHomeCategories(
               "Meal",
               () => Get.toNamed(seeAllProduct,
@@ -134,11 +131,14 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
   List<Map> listItems = listDocs
       .map((e) => {
             'img': e['img'],
+            'profile_img': e['profile_img'],
+            'videos': e['videos'],
+            'position': e['position'],
             'name': e['name'],
             'date': e['date'],
             'subtitle': e['subtitle'],
             'title': e['title'],
-             'like': e['like'],
+            'like': e['like'],
             'rating': e['rating'],
           })
       .toList();
@@ -154,8 +154,8 @@ ListView mealPodcast(List<Map<dynamic, dynamic>> items) {
       return Padding(
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
-          onTap: () =>
-              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
+          onTap: () => Get.toNamed(videosDetailsPage,
+              arguments: VideoDetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 140.h,
@@ -163,7 +163,7 @@ ListView mealPodcast(List<Map<dynamic, dynamic>> items) {
               borderRadius: BorderRadius.circular(6.r),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(thisItem["img"][0]),
+                image: NetworkImage(thisItem["img"]),
               ),
             ),
             child: Padding(
@@ -172,10 +172,7 @@ ListView mealPodcast(List<Map<dynamic, dynamic>> items) {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    thisItem['title'],
-                    style: style18(Colors.white)
-                  ),
+                  Text(thisItem['title'], style: style18(Colors.white)),
                   Text(
                     thisItem['subtitle'],
                     style: TextStyle(color: Colors.white),
@@ -214,8 +211,8 @@ ListView exercisePodcast(List<Map<dynamic, dynamic>> items) {
       return Padding(
         padding: EdgeInsets.only(right: 14.w),
         child: InkWell(
-          onTap: () =>
-              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
+          onTap: () => Get.toNamed(videosDetailsPage,
+              arguments: VideoDetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 170.h,
@@ -223,7 +220,7 @@ ListView exercisePodcast(List<Map<dynamic, dynamic>> items) {
               borderRadius: BorderRadius.circular(6.r),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(thisItem["img"][0]),
+                image: NetworkImage(thisItem["img"]),
               ),
             ),
             child: Padding(
@@ -232,14 +229,8 @@ ListView exercisePodcast(List<Map<dynamic, dynamic>> items) {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    thisItem['title'],
-                    style: style18(Colors.white)
-                  ),
-                  Text(
-                    thisItem['date'],
-                    style: style14
-                  ),
+                  Text(thisItem['title'], style: style18(Colors.white)),
+                  Text(thisItem['date'], style: style14),
                 ],
               ),
             ),
@@ -259,8 +250,8 @@ ListView quizPodcast(List<Map<dynamic, dynamic>> items) {
       return Padding(
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
-          onTap: () =>
-              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
+          onTap: () => Get.toNamed(videosDetailsPage,
+              arguments: VideoDetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 140.h,
@@ -268,7 +259,7 @@ ListView quizPodcast(List<Map<dynamic, dynamic>> items) {
               borderRadius: BorderRadius.circular(6.r),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(thisItem["img"][0]),
+                image: NetworkImage(thisItem["img"]),
               ),
             ),
             child: Padding(
@@ -277,10 +268,7 @@ ListView quizPodcast(List<Map<dynamic, dynamic>> items) {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    thisItem['title'],
-                    style: style18(Colors.white)
-                  ),
+                  Text(thisItem['title'], style: style18(Colors.white)),
                   Text(
                     thisItem['subtitle'],
                     style: TextStyle(color: Colors.white),

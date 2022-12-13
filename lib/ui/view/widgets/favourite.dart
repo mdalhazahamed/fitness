@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitness/ui/view/botton_nav_controller/details/details_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/video_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -40,7 +40,7 @@ class _FavouritePageState extends State<FavouritePage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.to(DetailsPage(data));
+                              Get.to(VideoDetailsPage(data));
                             },
                             child: Padding(
                               padding: EdgeInsets.only(top: 10.h),

@@ -3,7 +3,7 @@ import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/const/dimensions.dart';
 
 import 'package:fitness/ui/route/route.dart';
-import 'package:fitness/ui/view/botton_nav_controller/details/details_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/video_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -80,11 +80,11 @@ ListView forYouBuildGridview(List<Map<dynamic, dynamic>> shoppingItems) {
     itemBuilder: (_, i) {
       Map thisItem = shoppingItems[i];
       return InkWell(
-        onTap: () => Get.to(DetailsPage(thisItem)),
+        onTap: () => Get.to(VideoDetailsPage(thisItem)),
         child: Container(
           height: 90.h,
           child: Card(
-            color: Colors.white,
+            color: Colors.black12,
             elevation: 0.8,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -97,7 +97,7 @@ ListView forYouBuildGridview(List<Map<dynamic, dynamic>> shoppingItems) {
                       borderRadius: BorderRadius.circular(6.r),
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(thisItem["img"][0]),
+                        image: NetworkImage(thisItem["img"]),
                       ),
                     ),
                     child: Icon(Icons.play_arrow,
@@ -111,27 +111,26 @@ ListView forYouBuildGridview(List<Map<dynamic, dynamic>> shoppingItems) {
                       Text(
                         thisItem['title'],
                         style: TextStyle(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(height: 5.h),
                       Row(
                         children: [
                           Text(
                             thisItem['subtitle'],
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
                               fontSize: 16.sp,
                             ),
                           ),
-                          SizedBox(width: 3.w),
+                          SizedBox(width: 10.w),
                           Icon(
                             Icons.circle,
                             size: 8.sp,
                             color: Colors.amber,
                           ),
-                          SizedBox(width: 5.w),
+                          SizedBox(width: 10.w),
                           Text(
                             thisItem['date'],
                             style: TextStyle(

@@ -12,16 +12,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class DetailsPage extends StatefulWidget {
-  DetailsPage(this.detailsData);
+class BlogDetailPage extends StatefulWidget {
+  BlogDetailPage(this.detailsData);
 
   Map detailsData;
 
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _BlogDetailPageState createState() => _BlogDetailPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage>
+class _BlogDetailPageState extends State<BlogDetailPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
 
@@ -34,11 +34,13 @@ class _DetailsPageState extends State<DetailsPage>
         .doc()
         .set(
       {
-        'img': widget.detailsData['img'][0],
+        'img': widget.detailsData['img'],
+        'description': widget.detailsData['description'],
+        'profile_img': widget.detailsData['profile_img'],
         'date': widget.detailsData['date'],
         'like': widget.detailsData['like'],
         'rating': widget.detailsData['rating'],
-        
+        'position': widget.detailsData['position'],
       },
     ).whenComplete(() {
       Fluttertoast.showToast(
@@ -58,7 +60,7 @@ class _DetailsPageState extends State<DetailsPage>
         .collection("Users-Favourite")
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection("items")
-        .where("img", isEqualTo: widget.detailsData['img'][0])
+        .where("img", isEqualTo: widget.detailsData['img'])
         .snapshots();
   }
 
@@ -81,7 +83,7 @@ class _DetailsPageState extends State<DetailsPage>
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 9, 15, 44),
         elevation: 0,
-        title: Text("Details"),
+        title: Text("Blog Details", style: style20),
         actions: [],
       ),
       body: SafeArea(
@@ -90,21 +92,18 @@ class _DetailsPageState extends State<DetailsPage>
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: [
-                SizedBox(height: 10.h),
                 Column(
                   children: [
                     AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: BetterPlayer.network(
-                        widget.detailsData['img'][2],
-                        betterPlayerConfiguration: BetterPlayerConfiguration(
-                          aspectRatio: 16 / 9,
-                        ),
+                      aspectRatio: 18 / 12,
+                      child: Image.network(
+                        widget.detailsData['img'],
+                        fit: BoxFit.cover,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 16.w, vertical: 16.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),
                       child: Column(
                         children: [
                           Row(
@@ -127,6 +126,7 @@ class _DetailsPageState extends State<DetailsPage>
                                         icon: snapshot.data!.docs.length == 0
                                             ? Icon(
                                                 Icons.favorite_outline,
+                                                color: Colors.green,
                                               )
                                             : Icon(
                                                 Icons.favorite,
@@ -152,7 +152,6 @@ class _DetailsPageState extends State<DetailsPage>
                                   )),
                             ],
                           ),
-                          SizedBox(height: 6),
                           Row(
                             children: [
                               Icon(Icons.star, color: Colors.yellow),
@@ -166,9 +165,8 @@ class _DetailsPageState extends State<DetailsPage>
                               Icon(Icons.circle,
                                   size: 10.sp, color: Colors.grey),
                               SizedBox(width: 8.h),
-                              
                               Text(
-                                 widget.detailsData['like'],
+                                widget.detailsData['like'],
                                 style:
                                     TextStyle(fontSize: 15, color: Colors.grey),
                               ),
@@ -180,29 +178,20 @@ class _DetailsPageState extends State<DetailsPage>
                               ),
                             ],
                           ),
-                          SizedBox(height: 26.h),
-                          Row(
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.dumbbell,
-                                size: 12.sp,
+                          Padding(
+                            padding: EdgeInsets.only(top: 7.h),
+                            child: Text(
+                              widget.detailsData['description'],
+                              style: TextStyle(
                                 color: Color(0xFF979292),
+                                fontSize: 12.sp,
                               ),
-                              SizedBox(width: 10.w),
-                              Text(
-                                "5 min Video / 3 min Audio",
-                                style: TextStyle(
-                                  color: Color(0xFF979292),
-                                  fontSize: 12.sp,
-                                ),
-                              )
-                            ],
+                            ),
                           ),
-                          SizedBox(height: 7.h),
                           Row(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(top: 5.h),
+                                padding: EdgeInsets.only(top: 15.h),
                                 child: Icon(
                                   Icons.sms_outlined,
                                   size: 16,
@@ -231,7 +220,7 @@ class _DetailsPageState extends State<DetailsPage>
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: NetworkImage(
-                                        widget.detailsData['img'][1]),
+                                        widget.detailsData['profile_img']),
                                   ),
                                 ),
                               ),
@@ -246,7 +235,7 @@ class _DetailsPageState extends State<DetailsPage>
                                   ),
                                   SizedBox(height: 4.h),
                                   Text(
-                                    "Profession",
+                                    widget.detailsData['position'],
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 14.sp),
                                   ),

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:fitness/ui/route/route.dart';
-import 'package:fitness/ui/view/botton_nav_controller/details/details_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/video_details_page.dart';
 
 import 'package:fitness/ui/view/botton_nav_controller/pages/home/see_all_product.dart';
 import 'package:fitness/ui/view/widgets/nav_home-categories.dart';
@@ -101,6 +101,9 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
   List<Map> listItems = listDocs
       .map((e) => {
             'img': e['img'],
+            'profile_img': e['profile_img'],
+            'videos': e['videos'],
+            'position': e['position'],
             'name': e['name'],
             'date': e['date'],
             'subtitle': e['subtitle'],
@@ -121,8 +124,8 @@ ListView newestPodcast(List<Map<dynamic, dynamic>> items) {
       return Padding(
         padding: EdgeInsets.only(right: 12.w),
         child: InkWell(
-          onTap: () =>
-              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
+          onTap: () => Get.toNamed(videosDetailsPage,
+              arguments: VideoDetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 140.h,
@@ -130,7 +133,7 @@ ListView newestPodcast(List<Map<dynamic, dynamic>> items) {
               borderRadius: BorderRadius.circular(6.r),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(thisItem["img"][0]),
+                image: NetworkImage(thisItem["img"]),
               ),
             ),
             child: Padding(
@@ -184,8 +187,8 @@ ListView recommendedVideos(List<Map<dynamic, dynamic>> items) {
       return Padding(
         padding: EdgeInsets.only(right: 14.w),
         child: InkWell(
-          onTap: () =>
-              Get.toNamed(detailsPage, arguments: DetailsPage(thisItem)),
+          onTap: () => Get.toNamed(videosDetailsPage,
+              arguments: VideoDetailsPage(thisItem)),
           child: Container(
             width: 280.w,
             height: 170.h,
@@ -193,7 +196,7 @@ ListView recommendedVideos(List<Map<dynamic, dynamic>> items) {
               borderRadius: BorderRadius.circular(6.r),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(thisItem["img"][0]),
+                image: NetworkImage(thisItem["img"]),
               ),
             ),
             child: Padding(

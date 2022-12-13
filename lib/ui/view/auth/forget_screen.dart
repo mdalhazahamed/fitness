@@ -26,7 +26,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroudImage(image: "assets/logo1.jpg"),
+        BackgroudImage(
+            image: "https://www.nawpic.com/media/2020/gym-nawpic.webp"),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SafeArea(
@@ -36,8 +37,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 scrollDirection: Axis.vertical,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 50.h),
-                    child: Image.asset("assets/logo.png", height: 200.w),
+                    padding: EdgeInsets.only(top: 200.h),
                   ),
                   //textField widget
                   Form(
@@ -69,7 +69,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   SizedBox(height: 5.h),
                   InkWell(
                     onTap: () {
-                      _auth.sendPasswordResetEmail(email: emailController.text.toString());
+                      _auth.sendPasswordResetEmail(
+                          email: emailController.text.toString());
                     },
                     child: RoundedButton(
                       color: AppColors.backgroudColor,

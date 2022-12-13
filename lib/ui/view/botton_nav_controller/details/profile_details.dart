@@ -5,6 +5,7 @@ import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/theme/app_theme.dart';
+import 'package:fitness/ui/view/auth/login_screen.dart';
 import 'package:fitness/ui/view/botton_nav_controller/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -198,7 +199,7 @@ Future<bool> _onBackButtonPressed(BuildContext context) async {
             TextButton(
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => SplashScreen()));
+                    context, MaterialPageRoute(builder: (_) => LoginScreen()));
               },
               child: Text("LOGOUT"),
             ),

@@ -19,6 +19,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../../../busness_logic/auth.dart';
+
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
@@ -55,7 +57,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 40.h),
                     ),
-                    Image.asset("assets/fitness.png", height: 200.w),
+                    Image.network(
+                        "https://firebasestorage.googleapis.com/v0/b/fitness-f7af3.appspot.com/o/onboariding_image%2Ffitness.png?alt=media&token=3cdc24d2-c13b-4507-bcfc-4620b031abc1",
+                        height: 200.w),
 
                     //textField widget
                     SizedBox(
@@ -134,7 +138,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     //rounded widget
                     InkWell(
                       onTap: () {
-                        signUp(emailController.text, passwordController.text);
+                        if (_formKey.currentState!.validate()) {
+                          Auth().registration(emailController.text,
+                              passwordController.text, context);
+                        }
                       },
                       child: RoundedButton(
                         color: AppColors.backgroudColor,
@@ -186,43 +193,5 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ],
     );
-  }
-
-  void signUp(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      await _auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {postDetailsToFirestore()})
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.message);
-      });
-    }
-  }
-
-  postDetailsToFirestore() async {
-    // calling our firebastore
-    //calling our user model
-    //sending thase values
-
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    User? user = _auth.currentUser;
-
-    UserModel userModel = UserModel();
-
-    //writing all the values
-    userModel.email = user!.email;
-    userModel.uid = user.uid;
-    userModel.name = firstNameEditingController.text;
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .set(userModel.toMap());
-    Fluttertoast.showToast(msg: "Account created seccessfully :)");
-
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => BottonNavController()),
-        (route) => false);
   }
 }

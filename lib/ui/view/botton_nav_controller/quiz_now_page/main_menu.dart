@@ -1,6 +1,6 @@
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/view/botton_nav_controller/quiz_now_page/quizz_screen.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatefulWidget {
@@ -24,16 +24,6 @@ class _MainMenuState extends State<MainMenu> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Center(
-              child: Text(
-                "Quizz App",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             Expanded(
               child: Center(
                 child: RawMaterialButton(

@@ -27,7 +27,7 @@ class _BottonNavControllerState extends State<BottonNavController> {
     HomePage(),
     ChallangePage(),
     MediaPage(),
-    SearchBar(),
+    SearchScreen(),
     MyProfile(),
   ];
 
