@@ -2,6 +2,7 @@ import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/view/auth/login_screen.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/home/music_page.dart';
 import 'package:fitness/ui/view/botton_nav_controller/pages/home/overview_page.dart';
 
 import 'package:fitness/ui/view/botton_nav_controller/details/reviews_tabs.dart';
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -77,13 +78,16 @@ class _HomePageState extends State<HomePage>
                     Tab(
                       text: 'Blog',
                     ),
+                    Tab(
+                      text: 'Music',
+                    ),
                   ],
                 ),
               ),
               Expanded(
                 child: TabBarView(
                   controller: tabController,
-                  children: [OverviewPage(), BlogPage()],
+                  children: [OverviewPage(), BlogPage(), MusicPage()],
                 ),
               )
             ],

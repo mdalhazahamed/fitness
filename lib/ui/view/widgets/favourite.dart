@@ -2,7 +2,12 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness/ui/route/route.dart';
+import 'package:fitness/ui/style/style.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/blog_details_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/profile_details.dart';
 import 'package:fitness/ui/view/botton_nav_controller/details/video_details_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,6 +21,13 @@ class _FavouritePageState extends State<FavouritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Favourite",
+          style: style22,
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 15.h),
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -40,23 +52,22 @@ class _FavouritePageState extends State<FavouritePage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.to(VideoDetailsPage(data));
+                              Get.to(BlogDetailPage(data));
                             },
                             child: Padding(
-                              padding: EdgeInsets.only(top: 10.h),
+                              padding: EdgeInsets.only(top: 5.h),
                               child: Container(
-                                height: 150.h,
+                                height: 180.h,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.r)),
+                                    borderRadius: BorderRadius.circular(10)),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  child: Image.network(
-                                    data['img'],
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      data['img'],
+                                      fit: BoxFit.cover,
+                                    )),
                               ),
                             ),
                           ),

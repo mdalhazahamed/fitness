@@ -21,8 +21,6 @@ class ProfileDetails extends StatefulWidget {
 class _ProfileDetailsState extends State<ProfileDetails> {
   RxBool darkMode = false.obs;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +34,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             height: 8.h,
           ),
           _profileName(
-            "Md Alhaz Ahammed",
+            FirebaseAuth.instance.currentUser!.email.toString(),
           ),
           SizedBox(
             height: 10.h,
@@ -114,7 +112,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             ListTile(
               leading: Icon(Icons.email, color: Colors.white),
               title: Text(
-                FirebaseAuth.instance.currentUser!.email.toString(),
+                FirebaseAuth.instance.currentUser!.displayName.toString(),
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -122,7 +120,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               height: 0.6,
               color: Colors.white,
             ),
-           
 
             Divider(
               height: 0.6,

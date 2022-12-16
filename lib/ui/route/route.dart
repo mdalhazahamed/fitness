@@ -2,6 +2,7 @@ import 'package:fitness/ui/view/auth/forget_screen.dart';
 import 'package:fitness/ui/view/auth/login_screen.dart';
 import 'package:fitness/ui/view/auth/on_boarding_screen.dart';
 import 'package:fitness/ui/view/auth/registration_screen.dart';
+import 'package:fitness/ui/view/botton_nav_controller/details/music_details.page.dart';
 import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
 import 'package:fitness/ui/view/botton_nav_controller/quiz_now_page/main_menu.dart';
 import 'package:fitness/ui/view/botton_nav_controller/splash_screen.dart';
@@ -21,6 +22,7 @@ const String registration = '/registration_screen';
 const String forgot = '/forgot_screen';
 const String bottonNavController = '/bottonNavController';
 const String videosDetailsPage = '/video_details_screen';
+const String musicDetailsPage = '/music_details_page';
 const String blogDetailsPage = '/blog_details_screen';
 const String favouriteDetails = '/favouriteDetails';
 const String seeAllProduct = '/seeAllProduct';
@@ -61,6 +63,13 @@ List<GetPage> getPages = [
     page: () {
       VideoDetailsPage _detailsSCreen = Get.arguments;
       return _detailsSCreen;
+    },
+  ),
+  GetPage(
+    name: musicDetailsPage,
+    page: () {
+      MusicDetailsPage _musicDetailsSCreen = Get.arguments;
+      return _musicDetailsSCreen;
     },
   ),
   GetPage(

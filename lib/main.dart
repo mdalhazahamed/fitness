@@ -3,6 +3,7 @@ import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/theme/app_theme.dart';
 import 'package:fitness/ui/view/auth/login_screen.dart';
 import 'package:fitness/ui/view/auth/on_boarding_screen.dart';
+import 'package:fitness/ui/view/auth/registration_screen.dart';
 import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
 import 'package:fitness/ui/view/botton_nav_controller/pages/home_page.dart';
 
@@ -41,9 +42,9 @@ class MyApp extends StatelessWidget {
             theme: AppTheme().lightTheme(context),
             darkTheme: AppTheme().darkTheme(context),
             themeMode: ThemeMode.system,
-            initialRoute: splash,
+            initialRoute: bottonNavController,
             getPages: getPages,
-            home: SplashScreen(),
+            home: BottonNavController(),
           );
         });
   }

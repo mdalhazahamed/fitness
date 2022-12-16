@@ -57,7 +57,7 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
   Stream<QuerySnapshot<Map<String, dynamic>>> checkFav(
       BuildContext context) async* {
     yield* FirebaseFirestore.instance
-        .collection("Users-Favourite")
+        .collection("favourite_items")
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection("items")
         .where("img", isEqualTo: widget.detailsData['img'])
@@ -129,7 +129,6 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
                                         icon: snapshot.data!.docs.length == 0
                                             ? Icon(
                                                 Icons.favorite_outline,
-                                                color: Colors.green,
                                               )
                                             : Icon(
                                                 Icons.favorite,

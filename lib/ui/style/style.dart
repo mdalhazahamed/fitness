@@ -37,3 +37,20 @@ InputDecoration myDecoration(hint, icon) => InputDecoration(
       prefixIcon: icon,
       prefixStyle: TextStyle(fontSize: 15.sp),
     );
+
+    progressDialog(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Image.asset(
+            "assets/files/loading.gif",
+            height: 150.h,
+          ),
+        );
+      },
+      barrierDismissible: false,
+    );
+  }

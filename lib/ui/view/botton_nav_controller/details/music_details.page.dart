@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:better_player/better_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,19 +13,40 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BlogDetailPage extends StatefulWidget {
-  
-  BlogDetailPage(this.detailsData);
+class MusicDetailsPage extends StatefulWidget {
+  MusicDetailsPage(this.detailsData);
 
   Map detailsData;
 
   @override
-  _BlogDetailPageState createState() => _BlogDetailPageState();
+  _MusicDetailsPageState createState() => _MusicDetailsPageState();
 }
 
-class _BlogDetailPageState extends State<BlogDetailPage>
+class _MusicDetailsPageState extends State<MusicDetailsPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+
+  AudioPlayer audioPlayer = AudioPlayer();
+  //final player = AudioPlayer();
+
+  bool isPlaying = false;
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
+
+  String? time(Duration duration) {
+    String twodigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twodigits(duration.inHours);
+    final minutes = twodigits(duration.inMinutes.remainder(60));
+    final seconds = twodigits(duration.inSeconds.remainder(60));
+
+    return [if (duration.inHours > 0) hours, minutes, seconds].join(':');
+  }
+
+  Future setAudio(data) async {
+    audioPlayer.setReleaseMode(ReleaseMode.STOP);
+
+    audioPlayer.setUrl(data);
+  }
 
 //add to favourite
   addtoFavourite() async {
@@ -42,6 +64,7 @@ class _BlogDetailPageState extends State<BlogDetailPage>
         'like': widget.detailsData['like'],
         'rating': widget.detailsData['rating'],
         'position': widget.detailsData['position'],
+        'music': widget.detailsData['music'],
       },
     ).whenComplete(() {
       Fluttertoast.showToast(
@@ -68,12 +91,29 @@ class _BlogDetailPageState extends State<BlogDetailPage>
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
+    setAudio(widget.detailsData['music']);
+    audioPlayer.onPlayerStateChanged.listen((state) {
+      setState(() {
+        isPlaying = state == PlayerState.PLAYING;
+      });
+    });
+    audioPlayer.onDurationChanged.listen((newDuration) {
+      setState(() {
+        duration = newDuration;
+      });
+    });
+    audioPlayer.onAudioPositionChanged.listen((newPosition) {
+      setState(() {
+        position = newPosition;
+      });
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     tabController.dispose();
+    audioPlayer.dispose();
     super.dispose();
   }
 
@@ -95,18 +135,64 @@ class _BlogDetailPageState extends State<BlogDetailPage>
               children: [
                 Column(
                   children: [
-                    AspectRatio(
-                      aspectRatio: 18 / 12,
-                      child: Image.network(
-                        widget.detailsData['img'],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),
                       child: Column(
                         children: [
+                          Container(
+                            height: 200.h,
+                            width: double.infinity.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5)),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Image.network(
+                                  widget.detailsData['img'],
+                                  fit: BoxFit.fill,
+                                )),
+                          ),
+                          SizedBox(height: 10.h),
+                          Text(
+                            widget.detailsData['name'],
+                            style: style18(Colors.white),
+                          ),
+                          Slider(
+                              min: 0,
+                              max: duration.inSeconds.toDouble(),
+                              value: position.inSeconds.toDouble(),
+                              onChanged: (value) async {
+                                final position =
+                                    Duration(seconds: value.toInt());
+                                await audioPlayer.seek(position);
+                                await audioPlayer.resume();
+                              }),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(time(position) ?? '', style: style14),
+                                Text(time(duration) ?? '', style: style14),
+                              ],
+                            ),
+                          ),
+                          CircleAvatar(
+                            radius: 25.r,
+                            child: IconButton(
+                              onPressed: () async {
+                                if (isPlaying) {
+                                  await audioPlayer.pause();
+                                } else {
+                                  await audioPlayer.resume();
+                                }
+                              },
+                              icon: Icon(
+                                  isPlaying ? Icons.pause : Icons.play_arrow),
+                              iconSize: 30,
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -117,35 +203,39 @@ class _BlogDetailPageState extends State<BlogDetailPage>
                               ),
                               CircleAvatar(
                                   backgroundColor: Color(0xFF202835),
-                                  child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: checkFav(context),
-              builder: (context, snapshot) {
-                if (snapshot.data == null) return Text("");
-                return IconButton(
-                  icon: snapshot.data!.docs.length == 0
-                      ? Icon(
-                          Icons.favorite_outline,
-                        )
-                      : Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
-                  onPressed: () {
-                    snapshot.data!.docs.length == 0
-                        ? addtoFavourite()
-                        : Fluttertoast.showToast(
-                            msg: "Already Added",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.SNACKBAR,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.deepOrange,
-                            textColor: Colors.white,
-                            fontSize: 13.0);
-                  },
-                );
-              },
-            )
-                                  ),
+                                  child: StreamBuilder<
+                                      QuerySnapshot<Map<String, dynamic>>>(
+                                    stream: checkFav(context),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.data == null)
+                                        return Text("");
+                                      return IconButton(
+                                        icon: snapshot.data!.docs.length == 0
+                                            ? Icon(
+                                                Icons.favorite_outline,
+                                              )
+                                            : Icon(
+                                                Icons.favorite,
+                                                color: Colors.red,
+                                              ),
+                                        onPressed: () {
+                                          snapshot.data!.docs.length == 0
+                                              ? addtoFavourite()
+                                              : Fluttertoast.showToast(
+                                                  msg: "Already Added",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity:
+                                                      ToastGravity.SNACKBAR,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.deepOrange,
+                                                  textColor: Colors.white,
+                                                  fontSize: 13.0);
+                                        },
+                                      );
+                                    },
+                                  )),
                             ],
                           ),
                           Row(
