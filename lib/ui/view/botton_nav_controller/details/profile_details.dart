@@ -61,7 +61,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
     return Scaffold(
       backgroundColor: Color(0XFF090D22),
       body: SafeArea(
-          child: Column
+          child: Column(
         children: [
           //for circle avtar image
           _getHeader(),
