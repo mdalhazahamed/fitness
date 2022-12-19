@@ -58,13 +58,21 @@ class _MusicDetailsPageState extends State<MusicDetailsPage>
         .set(
       {
         'img': widget.detailsData['img'],
+        'name': widget.detailsData['name'],
         'profile_img': widget.detailsData['profile_img'],
         'videos': widget.detailsData['videos'],
         'date': widget.detailsData['date'],
         'like': widget.detailsData['like'],
         'rating': widget.detailsData['rating'],
         'position': widget.detailsData['position'],
+        'music_name': widget.detailsData['music_name'],
+        'music_songs': widget.detailsData['music_songs'],
         'music': widget.detailsData['music'],
+        'type': widget.detailsData['type'],
+        'subtitle': widget.detailsData['subtitle'],
+         'title': widget.detailsData['title'],
+         
+         'description': widget.detailsData['description'],
       },
     ).whenComplete(() {
       Fluttertoast.showToast(
@@ -124,7 +132,7 @@ class _MusicDetailsPageState extends State<MusicDetailsPage>
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 9, 15, 44),
         elevation: 0,
-        title: Text("Blog Details", style: style20),
+         title: Text(widget.detailsData['type'],style: style22),
         actions: [],
       ),
       body: SafeArea(

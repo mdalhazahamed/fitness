@@ -151,3 +151,23 @@ ListView forYouBuildGridview(List<Map<dynamic, dynamic>> shoppingItems) {
     },
   );
 }
+
+List<Map> parseData(QuerySnapshot querySnapshot) {
+  List<QueryDocumentSnapshot> listDocs = querySnapshot.docs;
+  List<Map> listItems = listDocs
+      .map((e) => {
+            'img': e['img'],
+            'profile_img': e['profile_img'],
+            'videos': e['videos'],
+            'position': e['position'],
+            'name': e['name'],
+            'date': e['date'],
+            'subtitle': e['subtitle'],
+            'title': e['title'],
+            'like': e['like'],
+            'rating': e['rating'],
+          })
+      .toList();
+  return listItems;
+}
+

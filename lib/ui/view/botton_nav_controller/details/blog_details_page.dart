@@ -13,7 +13,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BlogDetailPage extends StatefulWidget {
-  
   BlogDetailPage(this.detailsData);
 
   Map detailsData;
@@ -35,6 +34,9 @@ class _BlogDetailPageState extends State<BlogDetailPage>
         .doc()
         .set(
       {
+        'name': widget.detailsData['name'],
+        'title': widget.detailsData['title'],
+        'subtite': widget.detailsData['type'],
         'img': widget.detailsData['img'],
         'profile_img': widget.detailsData['profile_img'],
         'videos': widget.detailsData['videos'],
@@ -42,6 +44,8 @@ class _BlogDetailPageState extends State<BlogDetailPage>
         'like': widget.detailsData['like'],
         'rating': widget.detailsData['rating'],
         'position': widget.detailsData['position'],
+        'type': widget.detailsData['type'],
+        'description': widget.detailsData['description'],
       },
     ).whenComplete(() {
       Fluttertoast.showToast(
@@ -84,7 +88,8 @@ class _BlogDetailPageState extends State<BlogDetailPage>
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 9, 15, 44),
         elevation: 0,
-        title: Text("Blog Details", style: style20),
+        title: Text(widget.detailsData['type'],
+            style: style22),
         actions: [],
       ),
       body: SafeArea(
@@ -117,35 +122,39 @@ class _BlogDetailPageState extends State<BlogDetailPage>
                               ),
                               CircleAvatar(
                                   backgroundColor: Color(0xFF202835),
-                                  child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: checkFav(context),
-              builder: (context, snapshot) {
-                if (snapshot.data == null) return Text("");
-                return IconButton(
-                  icon: snapshot.data!.docs.length == 0
-                      ? Icon(
-                          Icons.favorite_outline,
-                        )
-                      : Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
-                  onPressed: () {
-                    snapshot.data!.docs.length == 0
-                        ? addtoFavourite()
-                        : Fluttertoast.showToast(
-                            msg: "Already Added",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.SNACKBAR,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.deepOrange,
-                            textColor: Colors.white,
-                            fontSize: 13.0);
-                  },
-                );
-              },
-            )
-                                  ),
+                                  child: StreamBuilder<
+                                      QuerySnapshot<Map<String, dynamic>>>(
+                                    stream: checkFav(context),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.data == null)
+                                        return Text("");
+                                      return IconButton(
+                                        icon: snapshot.data!.docs.length == 0
+                                            ? Icon(
+                                                Icons.favorite_outline,
+                                              )
+                                            : Icon(
+                                                Icons.favorite,
+                                                color: Colors.red,
+                                              ),
+                                        onPressed: () {
+                                          snapshot.data!.docs.length == 0
+                                              ? addtoFavourite()
+                                              : Fluttertoast.showToast(
+                                                  msg: "Already Added",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity:
+                                                      ToastGravity.SNACKBAR,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.deepOrange,
+                                                  textColor: Colors.white,
+                                                  fontSize: 13.0);
+                                        },
+                                      );
+                                    },
+                                  )),
                             ],
                           ),
                           Row(

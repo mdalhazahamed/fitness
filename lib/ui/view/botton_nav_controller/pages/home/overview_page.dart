@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../style/style.dart';
+
 class OverviewPage extends StatefulWidget {
   const OverviewPage({super.key});
 
@@ -24,17 +26,6 @@ class _OverviewPageState extends State<OverviewPage> {
   //queryName
   late Future<QuerySnapshot> _futureDataNewestPodcast;
   late Future<QuerySnapshot> _futureDataRecommededVideos;
-
-  @override
-  void initState() {
-    _futureDataNewestPodcast =
-        _refference.where('newest_podcast', isEqualTo: true).get();
-
-    _futureDataRecommededVideos =
-        _refference.where('recommended_videos', isEqualTo: true).get();
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,19 +44,83 @@ class _OverviewPageState extends State<OverviewPage> {
           SizedBox(height: 16.h),
           Container(
             height: 140.h,
-            child: FutureBuilder<QuerySnapshot>(
-                future: _futureDataNewestPodcast,
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.hasError) {
-                    return Text("Error");
-                  }
-                  if (snapshot.hasData) {
-                    List<Map> items = parseData(snapshot.data);
-                    return newestPodcast(items);
-                  }
-                  return Center(child: CircularProgressIndicator());
-                }),
+            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: FirebaseFirestore.instance
+                  .collection('all_products')
+                  .where('newest_podcast', isEqualTo: true)
+                  .snapshots(),
+              builder: (_, snapshot) {
+                if (snapshot.hasError) return Text('Error = ${snapshot.error}');
+
+                if (snapshot.hasData) {
+                  final docs = snapshot.data!.docs;
+                  return Container(
+                    height: 170.h,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: docs.length,
+                        itemBuilder: (_, i) {
+                          final data = docs[i].data();
+                          return Padding(
+                            padding: EdgeInsets.only(right: 10.w),
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(VideoDetailsPage(data));
+                              },
+                              child: Container(
+                                width: 280.w,
+                                height: 140.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(data["img"]),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(bottom: 20.w, left: 16.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(data['title'],
+                                          style: style18(Colors.white)),
+                                      Text(
+                                        data['subtitle'],
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            data['name'],
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Text("-"),
+                                          SizedBox(width: 10),
+                                          Text(
+                                            data['date'],
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  );
+                }
+
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
           ),
           SizedBox(height: 20.h),
           navHomeCategories(
@@ -76,19 +131,73 @@ class _OverviewPageState extends State<OverviewPage> {
           SizedBox(height: 16.h),
           Container(
             height: 170.h,
-            child: FutureBuilder<QuerySnapshot>(
-                future: _futureDataRecommededVideos,
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.hasError) {
-                    return Text("Error");
-                  }
-                  if (snapshot.hasData) {
-                    List<Map> items = parseData(snapshot.data);
-                    return recommendedVideos(items);
-                  }
-                  return Center(child: CircularProgressIndicator());
-                }),
+            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: FirebaseFirestore.instance
+                  .collection('all_products')
+                  .where('recommended_videos', isEqualTo: true)
+                  .snapshots(),
+              builder: (_, snapshot) {
+                if (snapshot.hasError) return Text('Error = ${snapshot.error}');
+
+                if (snapshot.hasData) {
+                  final docs = snapshot.data!.docs;
+                  return Container(
+                    height: 180.h,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: docs.length,
+                        itemBuilder: (_, i) {
+                          final data = docs[i].data();
+                          return Padding(
+                            padding: EdgeInsets.only(right: 10.w),
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(VideoDetailsPage(data));
+                              },
+                              child: Container(
+                                width: 280.w,
+                                height: 170.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.r),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(data["img"]),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(bottom: 20.w, left: 16.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data['title'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        data['date'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  );
+                }
+
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
           ),
         ],
       ),
@@ -96,132 +205,3 @@ class _OverviewPageState extends State<OverviewPage> {
   }
 }
 
-List<Map> parseData(QuerySnapshot querySnapshot) {
-  List<QueryDocumentSnapshot> listDocs = querySnapshot.docs;
-  List<Map> listItems = listDocs
-      .map((e) => {
-            'img': e['img'],
-            'profile_img': e['profile_img'],
-            'videos': e['videos'],
-            'position': e['position'],
-            'name': e['name'],
-            'date': e['date'],
-            'subtitle': e['subtitle'],
-            'title': e['title'],
-            'like': e['like'],
-            'rating': e['rating'],
-          })
-      .toList();
-  return listItems;
-}
-
-ListView newestPodcast(List<Map<dynamic, dynamic>> items) {
-  return ListView.builder(
-    scrollDirection: Axis.horizontal,
-    itemCount: items.length,
-    itemBuilder: (_, i) {
-      Map thisItem = items[i];
-      return Padding(
-        padding: EdgeInsets.only(right: 12.w),
-        child: InkWell(
-          onTap: () => Get.toNamed(videosDetailsPage,
-              arguments: VideoDetailsPage(thisItem)),
-          child: Container(
-            width: 280.w,
-            height: 140.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6.r),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(thisItem["img"]),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 20.w, left: 16.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    thisItem['title'],
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    thisItem['subtitle'],
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        thisItem['name'],
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      SizedBox(width: 10),
-                      Text("-"),
-                      SizedBox(width: 10),
-                      Text(
-                        thisItem['date'],
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}
-
-ListView recommendedVideos(List<Map<dynamic, dynamic>> items) {
-  return ListView.builder(
-    scrollDirection: Axis.horizontal,
-    itemCount: items.length,
-    itemBuilder: (_, i) {
-      Map thisItem = items[i];
-      return Padding(
-        padding: EdgeInsets.only(right: 14.w),
-        child: InkWell(
-          onTap: () => Get.toNamed(videosDetailsPage,
-              arguments: VideoDetailsPage(thisItem)),
-          child: Container(
-            width: 280.w,
-            height: 170.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6.r),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(thisItem["img"]),
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 20.w, left: 16.w),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    thisItem['title'],
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    thisItem['date'],
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}

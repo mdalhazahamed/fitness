@@ -34,13 +34,17 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
         .doc()
         .set(
       {
+        'name': widget.detailsData['name'],
+        'title': widget.detailsData['title'],
+        'subtite': widget.detailsData['type'],
+        'rating': widget.detailsData['rating'],
         'img': widget.detailsData['img'],
         'profile_img': widget.detailsData['profile_img'],
         'videos': widget.detailsData['videos'],
         'date': widget.detailsData['date'],
         'like': widget.detailsData['like'],
-        'rating': widget.detailsData['rating'],
         'position': widget.detailsData['position'],
+        'type': widget.detailsData['type'],
       },
     ).whenComplete(() {
       Fluttertoast.showToast(
@@ -83,7 +87,7 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 9, 15, 44),
         elevation: 0,
-        title: Text("Details", style: style20),
+        title: Text(widget.detailsData['type'], style: style22),
         actions: [],
       ),
       body: SafeArea(

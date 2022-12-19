@@ -10,7 +10,9 @@ import 'package:fitness/ui/view/botton_nav_controller/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileDetails extends StatefulWidget {
@@ -20,33 +22,98 @@ class ProfileDetails extends StatefulWidget {
 
 class _ProfileDetailsState extends State<ProfileDetails> {
   RxBool darkMode = false.obs;
+  final box = GetStorage();
+
+  List _allSongs = [];
+
+  Future logOut(context) async {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text("Are you sure want to logout?"),
+              content: Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut().then(
+                            (value) => Fluttertoast.showToast(
+                                msg: "Logout Successfull."),
+                          );
+                      await box.remove('uid');
+                      Get.toNamed(splash);
+                    },
+                    child: const Text("Yes"),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.back(),
+                    child: const Text("No"),
+                  ),
+                ],
+              ),
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFF090D22),
       body: SafeArea(
-          child: Column(
+          child: Column
         children: [
           //for circle avtar image
           _getHeader(),
           SizedBox(
             height: 8.h,
           ),
-          _profileName(
-            FirebaseAuth.instance.currentUser!.email.toString(),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.80, //80% of width,
+            child: Padding(
+              padding: EdgeInsets.only(left: 40.w),
+              child: Row(
+                children: [
+                  Icon(Icons.email, color: Colors.white, size: 20.sp),
+                  SizedBox(width: 8.w),
+                  Text(
+                    FirebaseAuth.instance.currentUser!.email.toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w800),
+                  ),
+                ],
+              ),
+            ),
           ),
-          SizedBox(
-            height: 10.h,
-          ),
-          _heading("Personal Details"),
-          SizedBox(
-            height: 6.h,
-          ),
+          SizedBox(height: 5.h),
+
           _detailsCard(),
 
           Spacer(),
-          logoutButton(context)
+          InkWell(
+            onTap: () => logOut(context),
+            child: Container(
+                color: Color.fromARGB(255, 48, 6, 3),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Logout",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      )
+                    ],
+                  ),
+                )),
+          ),
         ],
       )),
     );
@@ -77,29 +144,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
     );
   }
 
-  Widget _profileName(String name) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.80, //80% of width,
-      child: Center(
-        child: Text(
-          name,
-          style: TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
-        ),
-      ),
-    );
-  }
-
-  Widget _heading(String heading) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.80, //80% of width,
-      child: Text(
-        heading,
-        style: TextStyle(fontSize: 16, color: Colors.white),
-      ),
-    );
-  }
-
   Widget _detailsCard() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -109,13 +153,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
         child: Column(
           children: [
             //row for each deatails
-            ListTile(
-              leading: Icon(Icons.email, color: Colors.white),
-              title: Text(
-                FirebaseAuth.instance.currentUser!.displayName.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
+
             Divider(
               height: 0.6,
               color: Colors.white,
@@ -150,58 +188,4 @@ class _ProfileDetailsState extends State<ProfileDetails> {
       ),
     );
   }
-}
-
-Widget logoutButton(context) {
-  return InkWell(
-    onTap: () => _onBackButtonPressed(context),
-    child: Container(
-        color: Color.fromARGB(255, 48, 6, 3),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.logout,
-                color: Colors.white,
-              ),
-              SizedBox(width: 10),
-              Text(
-                "Logout",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              )
-            ],
-          ),
-        )),
-  );
-}
-
-Future<bool> _onBackButtonPressed(BuildContext context) async {
-  bool exitApp = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text(
-            "Are you sure you want to log out?",
-            style: TextStyle(fontSize: 14.sp),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: Text("CENCEL"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => LoginScreen()));
-              },
-              child: Text("LOGOUT"),
-            ),
-          ],
-        );
-      });
-  return exitApp ?? false;
 }

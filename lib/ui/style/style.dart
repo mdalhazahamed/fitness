@@ -54,3 +54,11 @@ InputDecoration myDecoration(hint, icon) => InputDecoration(
       barrierDismissible: false,
     );
   }
+
+ InputDecoration textFieldDecoration(String hint) => InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius:BorderRadius.circular(10.r),
+    ),
+    hintText: hint,
+
+  );
