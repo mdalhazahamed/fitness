@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
             theme: AppTheme().lightTheme(context),
             darkTheme: AppTheme().darkTheme(context),
             themeMode: ThemeMode.system,
-            initialRoute: bottonNavController,
+            initialRoute: splash,
             getPages: getPages,
-            home: BottonNavController(),
+            home: SplashScreen(),
           );
         });
   }
