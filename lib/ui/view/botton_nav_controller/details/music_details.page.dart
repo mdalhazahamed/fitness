@@ -92,7 +92,7 @@ class _MusicDetailsPageState extends State<MusicDetailsPage>
         .collection("favourite_items")
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection("items")
-        .where("img", isEqualTo: widget.detailsData['img'])
+        .orderBy("img", descending: widget.detailsData['img'])
         .snapshots();
   }
 
@@ -131,6 +131,12 @@ class _MusicDetailsPageState extends State<MusicDetailsPage>
       backgroundColor: Color(0XFF090D22),
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 9, 15, 44),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_circle_left_outlined, color: Colors.white),
+        ),
         elevation: 0,
          title: Text(widget.detailsData['type'],style: style22),
         actions: [],
@@ -294,7 +300,7 @@ class _MusicDetailsPageState extends State<MusicDetailsPage>
                               ),
                               SizedBox(width: 10.w),
                               Text(
-                                widget.detailsData['date'],
+                                widget.detailsData['time'],
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   color: Color(0xFF979292),

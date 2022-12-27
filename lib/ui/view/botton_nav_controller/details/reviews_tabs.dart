@@ -67,11 +67,12 @@ class _ReviewsTabsState extends State<ReviewsTabs> {
                     children: [
                       Text(
                         _reviews[index]["name"],
-                        style: style18(Colors.white),
+                        style: TextStyle(fontSize: 18.sp),
                       ),
+                      SizedBox(height: 3.h),
                       Text(
                         _reviews[index]["work"],
-                        style: style14,
+                        style: TextStyle(fontSize: 14.sp),
                       ),
                     ],
                   ),
@@ -83,10 +84,10 @@ class _ReviewsTabsState extends State<ReviewsTabs> {
                     Icons.star,
                     color: Color(0XFFF0BE3D),
                   ),
-                  SizedBox(width: 5.w),
+                  SizedBox(width: 8.w),
                   Text(
                     _reviews[index]["rating"],
-                    style: style18(Colors.white),
+                    style: TextStyle(fontSize: 16.sp),
                   ),
                   SizedBox(width: 10.w),
                 ],

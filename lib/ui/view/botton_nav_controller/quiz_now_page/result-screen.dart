@@ -1,4 +1,6 @@
 import 'package:fitness/ui/const/colors.dart';
+import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/challanges_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +61,7 @@ class _ResultScreenState extends State<ResultScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MainMenu(),
+                    builder: (context) => BottonNavController(),
                   ));
             },
             child: Text(

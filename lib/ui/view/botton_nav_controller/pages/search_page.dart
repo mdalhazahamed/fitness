@@ -13,9 +13,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF090D22),
       appBar: AppBar(
-        title: Text("Search"),
+        centerTitle: true,
+        title: Text("Search", style: TextStyle(fontSize: 18.sp)),
       ),
       body: SafeArea(
         child: Padding(
@@ -25,7 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Container(
                 height: 50.h,
                 decoration: BoxDecoration(
-                  color: Color(0xFF202835),
+                  color: Colors.grey,
                   borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: Padding(
@@ -91,7 +91,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           }).toList(),
                         );
                       }),
-                      
                 ),
               ),
             ],

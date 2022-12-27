@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/view/botton_nav_controller/details/blog_details_page.dart';
 import 'package:fitness/ui/view/botton_nav_controller/details/music_details.page.dart';
@@ -9,6 +10,8 @@ import 'package:fitness/ui/view/botton_nav_controller/details/video_details_page
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../style/style_screen.dart';
 
 class FavouritePage extends StatefulWidget {
   @override
@@ -20,18 +23,25 @@ class _FavouritePageState extends State<FavouritePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: true,
-          elevation: 0,
-          title: Text(
-            "Favourite",
-            style: style22,
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: true,
+        elevation: 1,
+        backgroundColor: AppColors.backgroudColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_circle_left_outlined, color: Colors.white),
         ),
-        body: Padding(
+        title: Text(
+          "Favourite",
+          style: AppStyles.tabTextStyle,
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
           padding: EdgeInsets.all(15.w),
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: FirebaseFirestore.instance

@@ -116,7 +116,7 @@ class _MealPageState extends State<MealPage> {
             "More Meals",
           ),
           Container(
-            height: 300.h,
+            height: 400.h,
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
                   .collection('challenges')
@@ -157,32 +157,31 @@ class _MealPageState extends State<MealPage> {
                                 children: [
                                   Text(
                                     data['name'],
-                                    style: style18(Colors.white),
+                                    style: TextStyle(fontSize: 18.sp),
                                   ),
                                   SizedBox(height: 4.h),
                                   Row(
                                     children: [
                                       Text(
                                         data['position'],
-                                        style: style14,
+                                        style: TextStyle(fontSize: 14.sp),
                                       ),
                                       SizedBox(width: 6.w),
                                       Icon(
                                         Icons.circle,
                                         size: 6.sp,
-                                        color: Colors.white,
                                       ),
                                       SizedBox(width: 6.w),
                                       Row(
                                         children: [
                                           Text(
                                             data['total'],
-                                            style: style14,
+                                            style: TextStyle(fontSize: 14.sp),
                                           ),
                                           SizedBox(width: 5),
                                           Text(
                                             "Trainer",
-                                            style: style14,
+                                            style: TextStyle(fontSize: 14.sp),
                                           ),
                                         ],
                                       ),

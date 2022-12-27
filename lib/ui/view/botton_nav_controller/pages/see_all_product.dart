@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'overview_page.dart';
-
 class SeeAllProduct extends StatefulWidget {
   var compare;
   SeeAllProduct(this.compare);
@@ -26,6 +24,7 @@ class _SeeAllProductState extends State<SeeAllProduct> {
   //queryName
   late Future<QuerySnapshot> _futureDataNewestPodcast;
   late Future<QuerySnapshot> _futureDataRecommededVideos;
+  late Future<QuerySnapshot> _futureDataBlog;
 
   @override
   void initState() {
@@ -33,6 +32,7 @@ class _SeeAllProductState extends State<SeeAllProduct> {
         _refference.where(widget.compare, isEqualTo: true).get();
     _futureDataRecommededVideos =
         _refference.where(widget.compare, isEqualTo: true).get();
+    _futureDataBlog = _refference.where(widget.compare, isEqualTo: true).get();
 
     super.initState();
   }
@@ -132,7 +132,7 @@ ListView forYouBuildGridview(List<Map<dynamic, dynamic>> shoppingItems) {
                           ),
                           SizedBox(width: 10.w),
                           Text(
-                            thisItem['date'],
+                            thisItem['time'],
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 13.sp,
@@ -161,13 +161,14 @@ List<Map> parseData(QuerySnapshot querySnapshot) {
             'videos': e['videos'],
             'position': e['position'],
             'name': e['name'],
-            'date': e['date'],
+            'time': e['time'],
             'subtitle': e['subtitle'],
             'title': e['title'],
             'like': e['like'],
             'rating': e['rating'],
+            'description': e['description'],
+            'type': e['type'],
           })
       .toList();
   return listItems;
 }
-

@@ -1,6 +1,6 @@
 import 'package:fitness/ui/const/colors.dart';
 import 'package:fitness/ui/style/style.dart';
-import 'package:fitness/ui/view/botton_nav_controller/pages/home/overview_page.dart';
+
 import 'package:fitness/ui/view/botton_nav_controller/pages/profile/my_challenges.dart';
 
 import 'package:fitness/ui/view/botton_nav_controller/details/reviews_tabs.dart';
@@ -38,7 +38,6 @@ class _MyProfileState extends State<MyProfile>
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
-        backgroundColor: Color(0XFF090D22),
         body: SafeArea(
           child: Column(
             children: [
@@ -47,18 +46,18 @@ class _MyProfileState extends State<MyProfile>
                   Padding(
                     padding: EdgeInsets.only(top: 32.h, left: 16.w),
                     child: Text("Good Morning,",
-                        style: TextStyle(fontSize: 24.sp, color: Colors.white)),
+                        style: TextStyle(fontSize: 24.sp)),
                   ),
                 ],
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 15.h),
                 child: TabBar(
-                  labelColor: Colors.white,
+                  labelColor: AppColors.backgroudColor,
                   unselectedLabelColor: Colors.grey,
                   indicatorWeight: 4,
                   indicatorColor: AppColors.backgroudColor,
-                  labelStyle: style18(Colors.black),
+                  labelStyle: style18(Colors.white),
                   controller: tabController,
                   tabs: [
                     Tab(

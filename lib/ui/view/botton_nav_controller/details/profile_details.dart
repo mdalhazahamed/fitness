@@ -59,7 +59,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF090D22),
       body: SafeArea(
           child: Column(
         children: [
@@ -74,14 +73,12 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               padding: EdgeInsets.only(left: 40.w),
               child: Row(
                 children: [
-                  Icon(Icons.email, color: Colors.white, size: 20.sp),
+                  Icon(Icons.email, size: 20.sp),
                   SizedBox(width: 8.w),
                   Text(
                     FirebaseAuth.instance.currentUser!.email.toString(),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w800),
                   ),
                 ],
               ),
@@ -148,7 +145,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        color: Colors.black,
         elevation: 4,
         child: Column(
           children: [
@@ -156,7 +152,6 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
             Divider(
               height: 0.6,
-              color: Colors.white,
             ),
 
             Divider(
@@ -164,21 +159,21 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               color: Colors.white38,
             ),
             ListTile(
-              leading: Icon(Icons.topic, color: Colors.white),
+              leading: Icon(Icons.topic),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Change Theme", style: TextStyle(color: Colors.white)),
+                  Text("Change Theme"),
                   Obx(
                     () => Switch(
-                        value: darkMode.value,
-                        onChanged: (bool value) {
-                          Get.changeTheme(
-                            darkMode.value == false
-                                ? AppTheme().lightTheme(context)
-                                : AppTheme().darkTheme(context),
-                          );
-                        }),
+                      value: darkMode.value,
+                      onChanged: (bool value) {
+                        darkMode.value = value;
+                        Get.changeTheme(darkMode.value == false
+                            ? AppTheme().lightTheme(context)
+                            : AppTheme().darkTheme(context));
+                      },
+                    ),
                   ),
                 ],
               ),

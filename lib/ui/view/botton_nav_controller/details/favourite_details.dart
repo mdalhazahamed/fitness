@@ -56,121 +56,113 @@ class _FavouriteDetailsState extends State<FavouriteDetails>
         .collection("Users-Favourite")
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection("items")
-        .where("fav-image", isEqualTo: widget.favourite['img'][0])
+        .orderBy("fav-image", descending: widget.favourite['img'][0])
         .snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Favourite", style: TextStyle(fontSize: 18.sp)),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_circle_left_outlined, size: 25.sp),
+          ),
+        ),
         body: SafeArea(
-      child: Stack(
-        children: [
-          //background image
-          Positioned(
-            left: 0,
-            right: 0,
-            child: Container(
-              width: double.infinity,
-              height: Dimensions.popularFoodImgSize,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(widget.favourite['img'][0]),
-                ),
-              ),
-            ),
-          ),
-          //icon widgets
-          Positioned(
-            top: Dimensions.height45,
-            left: Dimensions.width20,
-            right: Dimensions.width20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Color.fromARGB(255, 236, 236, 236),
-                  child: Center(
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: AppColors.backgroudColor,
-                        )),
-                  ),
-                )
-              ],
-            ),
-          ),
-          //introduction widgets
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            top: Dimensions.popularFoodImgSize - 20,
-            child: Container(
-              padding: EdgeInsets.only(
-                left: Dimensions.width20,
-                right: Dimensions.width20,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(Dimensions.radius20),
-                  topLeft: Radius.circular(Dimensions.radius20),
-                ),
-                color: Color(0xFF090D22),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: Dimensions.height20),
-                  SizedBox(height: Dimensions.height20),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.location_city,
-                                color: Colors.grey,
-                                size: 16.sp,
-                              ),
-                              SizedBox(width: 5.w),
-                              Text(
-                                widget.favourite['location'],
-                                style: TextStyle(
-                                    fontSize: 12.sp, color: Colors.grey),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: Dimensions.height15),
-                          Text(
-                            "Description",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 24.sp),
-                          ),
-                          SizedBox(height: 10.h),
-                          Text(
-                            widget.favourite['description'],
-                            style: style14,
-                          ),
-                        ],
-                      ),
+          child: Stack(
+            children: [
+              //background image
+              Positioned(
+                left: 0,
+                right: 0,
+                child: Container(
+                  width: double.infinity,
+                  height: Dimensions.popularFoodImgSize,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(widget.favourite['img'][0]),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+              //icon widgets
+              Positioned(
+                top: Dimensions.height45,
+                left: Dimensions.width20,
+                right: Dimensions.width20,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [],
+                ),
+              ),
+              //introduction widgets
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                top: Dimensions.popularFoodImgSize - 20,
+                child: Container(
+                  padding: EdgeInsets.only(
+                    left: Dimensions.width20,
+                    right: Dimensions.width20,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(Dimensions.radius20),
+                      topLeft: Radius.circular(Dimensions.radius20),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: Dimensions.height20),
+                      SizedBox(height: Dimensions.height20),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.location_city,
+                                    size: 16.sp,
+                                  ),
+                                  SizedBox(width: 5.w),
+                                  Text(
+                                    widget.favourite['location'],
+                                    style: TextStyle(fontSize: 12.sp),
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: Dimensions.height15),
+                              Text(
+                                "Description",
+                                style: TextStyle(fontSize: 24.sp),
+                              ),
+                              SizedBox(height: 10.h),
+                              Text(
+                                widget.favourite['description'],
+                                style: TextStyle(fontSize: 15.sp),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //exandabletext widget
+            ],
           ),
-          //exandabletext widget
-        ],
-      ),
-    ));
+        ));
   }
 }

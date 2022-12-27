@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../busness_logic/quiz_data/qustions_example.dart';
 
-
 class QuizzScreen extends StatefulWidget {
   const QuizzScreen({Key? key}) : super(key: key);
 

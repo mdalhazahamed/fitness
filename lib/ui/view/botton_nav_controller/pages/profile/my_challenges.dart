@@ -4,11 +4,13 @@ import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/style/style.dart';
 import 'package:fitness/ui/view/botton_nav_controller/details/video_details_page.dart';
 
-import 'package:fitness/ui/view/botton_nav_controller/pages/home/see_all_product.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/see_all_product.dart';
 import 'package:fitness/ui/view/widgets/nav_home-categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../../../../style/style_screen.dart';
 
 class MyChallenges extends StatefulWidget {
   const MyChallenges({super.key});
@@ -39,7 +41,7 @@ class _MyChallengesState extends State<MyChallenges> {
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
                   .collection('all_products')
-                  .where('profile_meal', isEqualTo: true)
+                  .orderBy('profile_meal', descending: true)
                   .snapshots(),
               builder: (_, snapshot) {
                 if (snapshot.hasError) return Text('Error = ${snapshot.error}');
@@ -47,14 +49,14 @@ class _MyChallengesState extends State<MyChallenges> {
                 if (snapshot.hasData) {
                   final docs = snapshot.data!.docs;
                   return Container(
-                    height: 170.h,
+                    height: 140.h,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: docs.length,
                         itemBuilder: (_, i) {
                           final data = docs[i].data();
                           return Padding(
-                            padding: EdgeInsets.only(right: 10.w),
+                            padding: EdgeInsets.only(left: 16.w),
                             child: InkWell(
                               onTap: () {
                                 Get.to(VideoDetailsPage(data));
@@ -79,14 +81,22 @@ class _MyChallengesState extends State<MyChallenges> {
                                     children: [
                                       Text(data['title'],
                                           style: style18(Colors.white)),
+                                      SizedBox(height: 10.h),
                                       Text(
                                         data['subtitle'],
                                         style: TextStyle(color: Colors.white),
                                       ),
-                                      SizedBox(width: 10),
-                                      Text(
-                                        data['date'],
-                                        style: TextStyle(color: Colors.white),
+                                      SizedBox(height: 2.h),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            data['time'],
+                                            style: AppStyles
+                                                .videoSubTitleTextStyle,
+                                          ),
+                                          SizedBox(width: 4.w),
+                                          Text("min", style: style14),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -115,7 +125,7 @@ class _MyChallengesState extends State<MyChallenges> {
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
                   .collection('all_products')
-                  .where('profile_exercise', isEqualTo: true)
+                  .orderBy('profile_exercise', descending: true)
                   .snapshots(),
               builder: (_, snapshot) {
                 if (snapshot.hasError) return Text('Error = ${snapshot.error}');
@@ -130,7 +140,7 @@ class _MyChallengesState extends State<MyChallenges> {
                         itemBuilder: (_, i) {
                           final data = docs[i].data();
                           return Padding(
-                            padding: EdgeInsets.only(right: 10.w),
+                            padding: EdgeInsets.only(left: 16.w),
                             child: InkWell(
                               onTap: () {
                                 Get.to(VideoDetailsPage(data));
@@ -155,16 +165,19 @@ class _MyChallengesState extends State<MyChallenges> {
                                     children: [
                                       Text(
                                         data['title'],
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.bold),
+                                        style: style18(Colors.white),
                                       ),
-                                      Text(
-                                        data['date'],
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.sp),
+                                      SizedBox(height: 5.h),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            data['time'],
+                                            style: AppStyles
+                                                .videoSubTitleTextStyle,
+                                          ),
+                                          SizedBox(width: 4.w),
+                                          Text("min", style: style14),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -194,7 +207,7 @@ class _MyChallengesState extends State<MyChallenges> {
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
                   .collection('all_products')
-                  .where('newest_podcast', isEqualTo: true)
+                  .orderBy('profile_quiz', descending: true)
                   .snapshots(),
               builder: (_, snapshot) {
                 if (snapshot.hasError) return Text('Error = ${snapshot.error}');
@@ -209,7 +222,7 @@ class _MyChallengesState extends State<MyChallenges> {
                         itemBuilder: (_, i) {
                           final data = docs[i].data();
                           return Padding(
-                            padding: EdgeInsets.only(right: 10.w),
+                            padding: EdgeInsets.only(left: 16.w),
                             child: InkWell(
                               onTap: () {
                                 Get.to(VideoDetailsPage(data));
@@ -232,27 +245,21 @@ class _MyChallengesState extends State<MyChallenges> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(data['title'],
-                                          style: style18(Colors.white)),
+                                      Text(
+                                        data['title'],
+                                        style: style18(Colors.white),
+                                      ),
+                                      SizedBox(height: 1.h),
                                       Text(
                                         data['subtitle'],
-                                        style: TextStyle(color: Colors.white),
+                                        style: style18(Colors.white),
                                       ),
+                                      SizedBox(height: 5.h),
                                       Row(
                                         children: [
-                                          Text(
-                                            data['name'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text("-"),
-                                          SizedBox(width: 10),
-                                          Text(
-                                            data['date'],
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
+                                          Text(data['time'], style: style14),
+                                          SizedBox(width: 4.w),
+                                          Text("min", style: style14),
                                         ],
                                       ),
                                     ],

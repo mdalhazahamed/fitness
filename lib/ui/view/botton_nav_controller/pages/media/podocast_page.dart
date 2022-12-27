@@ -34,12 +34,12 @@ class _MediaPodcastPageState extends State<MediaPodcastPage> {
       child: Column(
         children: [
           SizedBox(height: 10.h),
-          AspectRatio(
-            aspectRatio: 0.7,
+          SizedBox(
+            height: 650.h,
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
                   .collection('all_products')
-                  .where('meida_podcast', isEqualTo: true)
+                  .orderBy('meida_podcast', descending: true)
                   .snapshots(),
               builder: (_, snapshot) {
                 if (snapshot.hasError) return Text('Error = ${snapshot.error}');
@@ -47,7 +47,7 @@ class _MediaPodcastPageState extends State<MediaPodcastPage> {
                 if (snapshot.hasData) {
                   final docs = snapshot.data!.docs;
                   return GridView.builder(
-                      itemCount: docs.length,
+                      itemCount: 4,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 0.8,
@@ -55,8 +55,9 @@ class _MediaPodcastPageState extends State<MediaPodcastPage> {
                       itemBuilder: (_, i) {
                         final data = docs[i].data();
                         return InkWell(
-                          onTap: () => Get.toNamed(videosDetailsPage,
-                              arguments: VideoDetailsPage(data)),
+                           onTap: () {
+                                      Get.to(VideoDetailsPage(data));
+                                    },
                           child: Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 5.h, horizontal: 10.w),

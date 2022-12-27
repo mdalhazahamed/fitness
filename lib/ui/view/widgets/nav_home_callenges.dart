@@ -1,6 +1,8 @@
-import 'package:fitness/ui/const/colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../style/style_screen.dart';
 
 Widget navHomeCallenges(String categoryName) {
   return Padding(
@@ -10,10 +12,7 @@ Widget navHomeCallenges(String categoryName) {
       children: [
         Text(
           categoryName,
-          style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white),
+          style:  AppStyles.bigTextStyle,
         ),
       ],
     ),

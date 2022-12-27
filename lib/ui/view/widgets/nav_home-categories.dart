@@ -1,4 +1,4 @@
-import 'package:fitness/ui/const/colors.dart';
+import 'package:fitness/ui/style/style_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,19 +10,13 @@ Widget navHomeCategories(String categoryName, onClick) {
       children: [
         Text(
           categoryName,
-          style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: Colors.white),
+          style: AppStyles.bigTextStyle,
         ),
         InkWell(
           onTap: onClick,
           child: Text(
             "See All",
-            style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.backgroudColor),
+            style: AppStyles.seeAllTextStyle,
           ),
         ),
       ],

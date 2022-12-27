@@ -2,11 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness/ui/route/route.dart';
 import 'package:fitness/ui/theme/app_theme.dart';
 import 'package:fitness/ui/view/botton_nav_controller/nav_controller.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/my_profile_page.dart';
 import 'package:fitness/ui/view/botton_nav_controller/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             title: 'Fitness Apps',
             theme: AppTheme().lightTheme(context),
             darkTheme: AppTheme().darkTheme(context),
-            themeMode: ThemeMode.system,
+            themeMode: ThemeMode.light,
             initialRoute: splash,
             getPages: getPages,
             home: SplashScreen(),

@@ -25,6 +25,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+    bool value = true;
 
   // editing controller
   final TextEditingController emailController = new TextEditingController();
@@ -107,6 +108,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              value = !value;
+                            });
+                          },
+                          icon: value == true
+                              ? Icon(Icons.remove_red_eye, size: 25.sp)
+                              : Icon(
+                                  Icons.remove_red_eye_outlined,
+                                  size: 25.sp,
+                                )),
                         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "Password",
                         border: InputBorder.none,

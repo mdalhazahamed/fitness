@@ -29,7 +29,6 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF090D22),
       body: SafeArea(
         child: Column(
           children: [
@@ -57,7 +56,6 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                           child: Text(
                             contents[i].title,
                             style: TextStyle(
-                              color: Colors.white,
                               fontSize: 30.sp,
                               fontWeight: FontWeight.bold,
                             ),
@@ -95,7 +93,7 @@ class _OnbordingScreenState extends State<OnbordingScreen> {
                 child: Center(
                   child: Text(
                       currentIndex == contents.length - 1 ? "Continue" : "Next",
-                      style: style18(Colors.white)),
+                      style: TextStyle(fontSize: 18.sp)),
                 ),
                 onPressed: () {
                   if (currentIndex == contents.length - 1) {

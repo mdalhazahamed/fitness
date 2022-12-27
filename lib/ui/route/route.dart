@@ -13,7 +13,8 @@ import 'package:get/get.dart';
 
 import '../view/botton_nav_controller/details/blog_details_page.dart';
 import '../view/botton_nav_controller/details/video_details_page.dart';
-import '../view/botton_nav_controller/pages/home/see_all_product.dart';
+import '../view/botton_nav_controller/pages/see_all_product.dart';
+import '../view/botton_nav_controller/pages/view_items.dart';
 
 const String splash = '/splash_screen';
 const String login = '/login_screen';
@@ -25,6 +26,7 @@ const String videosDetailsPage = '/video_details_screen';
 const String musicDetailsPage = '/music_details_page';
 const String blogDetailsPage = '/blog_details_screen';
 const String favouriteDetails = '/favouriteDetails';
+const String viewItemsPage = '/viewItemsPage';
 const String seeAllProduct = '/seeAllProduct';
 const String favourte = '/favourte';
 const String favourteDetails = '/favourteDetails';
@@ -79,7 +81,14 @@ List<GetPage> getPages = [
       return _blogDetailsSCreen;
     },
   ),
-  //
+
+  GetPage(
+    name: viewItemsPage,
+    page: () {
+      ItemsView _itemsView = Get.arguments;
+      return _itemsView;
+    },
+  ),
   GetPage(
     name: favouriteDetails,
     page: () {

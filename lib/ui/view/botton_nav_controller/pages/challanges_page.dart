@@ -38,23 +38,20 @@ class _ChallangePageState extends State<ChallangePage>
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
-        backgroundColor: Color(0XFF090D22),
+        appBar: AppBar(
+          toolbarHeight: 30.h,
+          automaticallyImplyLeading: false,
+        ),
         body: SafeArea(
           child: Column(
             children: [
               Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 32.h, left: 16.w),
-                    child: Text("Good Morning,",
-                        style: TextStyle(fontSize: 20.sp, color: Colors.white)),
-                  ),
-                ],
+                children: [],
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.h, vertical: 15.h),
                 child: TabBar(
-                  labelColor: Colors.white,
+                  labelColor: AppColors.backgroudColor,
                   unselectedLabelColor: Colors.grey,
                   indicatorWeight: 4,
                   indicatorColor: AppColors.backgroudColor,

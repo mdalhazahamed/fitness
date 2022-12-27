@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness/ui/route/route.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/view_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,32 +15,18 @@ class MediaVideoPage extends StatefulWidget {
 }
 
 class _MediaVideoPageState extends State<MediaVideoPage> {
-  final CollectionReference _refference =
-      FirebaseFirestore.instance.collection('all_products');
-
-  //queryName
-  late Future<QuerySnapshot> _futureDataMediaVideos;
-
-  @override
-  void initState() {
-    _futureDataMediaVideos =
-        _refference.where('media_videos', isEqualTo: true).get();
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
           SizedBox(height: 10.h),
-          AspectRatio(
-            aspectRatio: 0.7,
+          SizedBox(
+            height: 650.h,
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
                   .collection('all_products')
-                  .where('media_videos', isEqualTo: true)
+                  .orderBy('media_videos', descending: true)
                   .snapshots(),
               builder: (_, snapshot) {
                 if (snapshot.hasError) return Text('Error = ${snapshot.error}');
@@ -47,16 +34,17 @@ class _MediaVideoPageState extends State<MediaVideoPage> {
                 if (snapshot.hasData) {
                   final docs = snapshot.data!.docs;
                   return GridView.builder(
-                      itemCount: docs.length,
+                      itemCount: 3,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 0.8,
                       ),
                       itemBuilder: (_, i) {
-                        final data = docs[i].data();
+                         final data = docs[i].data();
                         return InkWell(
-                          onTap: () => Get.toNamed(videosDetailsPage,
-                              arguments: VideoDetailsPage(data)),
+                          onTap: () {
+                                      Get.to(VideoDetailsPage(data));
+                                    },
                           child: Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 5.h, horizontal: 10.w),

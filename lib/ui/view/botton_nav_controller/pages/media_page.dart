@@ -1,9 +1,11 @@
-import 'package:fitness/ui/view/botton_nav_controller/pages/home/bolg_page.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../const/colors.dart';
+import '../../../style/style.dart';
 import '../../auth/login_screen.dart';
 import '../../widgets/back_dialog_box.dart';
+import 'media/media_bolg_page.dart';
 import 'media/podocast_page.dart';
 import 'media/video_page.dart';
 
@@ -14,19 +16,27 @@ class MediaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
         child: DefaultTabController(
-          length: 2,
+          length: 3,
           child: Scaffold(
-            backgroundColor: Color(0XFF090D22),
             appBar: AppBar(
-              backgroundColor: Color(0XFF090D22),
+              automaticallyImplyLeading: false,
+              toolbarHeight: 30.h,
               elevation: 0,
               bottom: TabBar(
+                labelColor: AppColors.backgroudColor,
+                unselectedLabelColor: Colors.grey,
+                indicatorWeight: 4,
+                indicatorColor: AppColors.backgroudColor,
+                labelStyle: style18(Colors.white),
                 tabs: [
                   Tab(
                     text: "Videos",
                   ),
                   Tab(
                     text: "Pocdasts",
+                  ),
+                  Tab(
+                    text: "Blog",
                   ),
                 ],
               ),
@@ -39,6 +49,9 @@ class MediaPage extends StatelessWidget {
                   ),
                   Container(
                     child: MediaPodcastPage(),
+                  ),
+                  Container(
+                    child: MediaBlogPage(),
                   ),
                 ],
               ),

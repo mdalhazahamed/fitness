@@ -1,28 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitness/ui/route/route.dart';
-import 'package:fitness/ui/view/botton_nav_controller/details/blog_details_page.dart';
+import 'package:fitness/ui/view/botton_nav_controller/pages/view_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../details/video_details_page.dart';
 
-class BlogPage extends StatefulWidget {
-  const BlogPage({Key? key}) : super(key: key);
+class MediaBlogPage extends StatefulWidget {
+  const MediaBlogPage({Key? key}) : super(key: key);
 
   @override
-  State<BlogPage> createState() => _BlogPageState();
+  State<MediaBlogPage> createState() => _MediaBlogPageState();
 }
 
-class _BlogPageState extends State<BlogPage> {
+class _MediaBlogPageState extends State<MediaBlogPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
           SizedBox(height: 10.h),
-          AspectRatio(
-            aspectRatio: 0.7,
+          SizedBox(
+            height: 650.h,
             child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
                   .collection('all_products')
@@ -42,8 +42,9 @@ class _BlogPageState extends State<BlogPage> {
                       itemBuilder: (_, i) {
                         final data = docs[i].data();
                         return InkWell(
-                          onTap: () => Get.toNamed(blogDetailsPage,
-                              arguments: BlogDetailPage(data)),
+                          onTap: () {
+                                      Get.to(VideoDetailsPage(data));
+                                    },
                           child: Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 5.h, horizontal: 10.w),
@@ -53,7 +54,7 @@ class _BlogPageState extends State<BlogPage> {
                               borderRadius: BorderRadius.circular(6.r),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage((data['img'])),
+                                image: NetworkImage((data['img'][0])),
                               ),
                             ),
                             child: Padding(
@@ -63,14 +64,14 @@ class _BlogPageState extends State<BlogPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(data['title'],
+                                  Text(data['name'],
                                       style: TextStyle(
                                           fontSize: 18.sp,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold)),
-                                  Text(data['subtitle'],
+                                  Text(data['food'],
                                       style: TextStyle(
-                                          fontSize: 15.sp,
+                                          fontSize: 14.sp,
                                           color: Colors.white)),
                                 ],
                               ),

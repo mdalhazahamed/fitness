@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:better_player/better_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../style/style_screen.dart';
 
 class BlogDetailPage extends StatefulWidget {
   BlogDetailPage(this.detailsData);
@@ -65,7 +65,7 @@ class _BlogDetailPageState extends State<BlogDetailPage>
         .collection("favourite_items")
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection("items")
-        .where("img", isEqualTo: widget.detailsData['img'])
+        .orderBy("img", descending: widget.detailsData['img'])
         .snapshots();
   }
 
@@ -84,12 +84,19 @@ class _BlogDetailPageState extends State<BlogDetailPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF090D22),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 9, 15, 44),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_circle_left_outlined,
+          ),
+        ),
+        automaticallyImplyLeading: false,
         elevation: 0,
-        title: Text(widget.detailsData['type'],
-            style: style22),
+        centerTitle: true,
+        title: Text(widget.detailsData['type'], style: AppStyles.bigTextStyle),
         actions: [],
       ),
       body: SafeArea(
@@ -117,8 +124,7 @@ class _BlogDetailPageState extends State<BlogDetailPage>
                             children: [
                               Text(
                                 "Content  Description",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20.sp),
+                                style: TextStyle(fontSize: 20.sp),
                               ),
                               CircleAvatar(
                                   backgroundColor: Color(0xFF202835),
@@ -163,8 +169,7 @@ class _BlogDetailPageState extends State<BlogDetailPage>
                               SizedBox(width: 7.5.h),
                               Text(
                                 widget.detailsData['rating'],
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.white),
+                                style: TextStyle(fontSize: 15),
                               ),
                               SizedBox(width: 8.h),
                               Icon(Icons.circle,
@@ -205,7 +210,7 @@ class _BlogDetailPageState extends State<BlogDetailPage>
                               ),
                               SizedBox(width: 10.w),
                               Text(
-                                widget.detailsData['date'],
+                                widget.detailsData['time'],
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   color: Color(0xFF979292),
@@ -235,14 +240,12 @@ class _BlogDetailPageState extends State<BlogDetailPage>
                                 children: [
                                   Text(
                                     widget.detailsData['name'],
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16.sp),
+                                    style: TextStyle(fontSize: 16.sp),
                                   ),
                                   SizedBox(height: 4.h),
                                   Text(
                                     widget.detailsData['position'],
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 14.sp),
+                                    style: TextStyle(fontSize: 14.sp),
                                   ),
                                 ],
                               ),
@@ -263,11 +266,11 @@ class _BlogDetailPageState extends State<BlogDetailPage>
                         padding: EdgeInsets.symmetric(
                             horizontal: 15.h, vertical: 15.h),
                         child: TabBar(
-                          unselectedLabelColor: AppColors.whiteColor,
-                          labelColor: AppColors.greyColor,
-                          indicatorColor: AppColors.backgroudColor,
+                          labelColor: AppColors.backgroudColor,
+                          unselectedLabelColor: Colors.grey,
                           indicatorWeight: 4,
-                          labelStyle: style18(Colors.black),
+                          indicatorColor: AppColors.backgroudColor,
+                          labelStyle: style18(Colors.white),
                           controller: tabController,
                           tabs: [
                             Tab(

@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../style/style_screen.dart';
+
 class VideoDetailsPage extends StatefulWidget {
   VideoDetailsPage(this.detailsData);
 
@@ -44,6 +46,7 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
         'date': widget.detailsData['date'],
         'like': widget.detailsData['like'],
         'position': widget.detailsData['position'],
+        'description': widget.detailsData['description'],
         'type': widget.detailsData['type'],
       },
     ).whenComplete(() {
@@ -53,7 +56,7 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
           gravity: ToastGravity.SNACKBAR,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.deepOrange,
-          textColor: Colors.white,
+          textColor: Colors.grey,
           fontSize: 13.0);
     }).catchError((error) => print("Failed to add user: $error"));
   }
@@ -64,7 +67,7 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
         .collection("favourite_items")
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection("items")
-        .where("img", isEqualTo: widget.detailsData['img'])
+        .orderBy("img", descending: widget.detailsData['img'])
         .snapshots();
   }
 
@@ -83,11 +86,18 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF090D22),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 9, 15, 44),
-        elevation: 0,
-        title: Text(widget.detailsData['type'], style: style22),
+        centerTitle: true,
+        elevation: 1,
+        title: Text(widget.detailsData['type'], style: AppStyles.bigTextStyle),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_circle_left_outlined,
+          ),
+        ),
         actions: [],
       ),
       body: SafeArea(
@@ -118,11 +128,10 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
                             children: [
                               Text(
                                 "Content  Description",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20.sp),
+                                style: TextStyle(fontSize: 20.sp),
                               ),
                               CircleAvatar(
-                                  backgroundColor: Color(0xFF202835),
+                                  backgroundColor: Colors.grey,
                                   child: StreamBuilder<
                                       QuerySnapshot<Map<String, dynamic>>>(
                                     stream: checkFav(context),
@@ -165,8 +174,7 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
                               SizedBox(width: 7.5.h),
                               Text(
                                 widget.detailsData['rating'],
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.white),
+                                style: TextStyle(fontSize: 15.sp),
                               ),
                               SizedBox(width: 8.h),
                               Icon(Icons.circle,
@@ -174,14 +182,12 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
                               SizedBox(width: 8.h),
                               Text(
                                 widget.detailsData['like'],
-                                style:
-                                    TextStyle(fontSize: 15, color: Colors.grey),
+                                style: TextStyle(fontSize: 15.sp),
                               ),
                               SizedBox(width: 3.h),
                               Text(
                                 "likes",
-                                style:
-                                    TextStyle(fontSize: 15, color: Colors.grey),
+                                style: TextStyle(fontSize: 15.sp),
                               ),
                             ],
                           ),
@@ -216,7 +222,7 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
                               ),
                               SizedBox(width: 10.w),
                               Text(
-                                widget.detailsData['date'],
+                                widget.detailsData['time'],
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   color: Color(0xFF979292),
@@ -246,14 +252,12 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
                                 children: [
                                   Text(
                                     widget.detailsData['name'],
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16.sp),
+                                    style: TextStyle(fontSize: 16.sp),
                                   ),
                                   SizedBox(height: 4.h),
                                   Text(
                                     widget.detailsData['position'],
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 14.sp),
+                                    style: TextStyle(fontSize: 14.sp),
                                   ),
                                 ],
                               ),
@@ -272,13 +276,13 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 15.h, vertical: 15.h),
+                            horizontal: 15.h, vertical: 1.h),
                         child: TabBar(
-                          unselectedLabelColor: AppColors.whiteColor,
-                          labelColor: AppColors.greyColor,
-                          indicatorColor: AppColors.backgroudColor,
+                          labelColor: AppColors.backgroudColor,
+                          unselectedLabelColor: Colors.grey,
                           indicatorWeight: 4,
-                          labelStyle: style18(Colors.black),
+                          indicatorColor: AppColors.backgroudColor,
+                          labelStyle: style18(Colors.white),
                           controller: tabController,
                           tabs: [
                             Tab(
@@ -300,13 +304,12 @@ class _VideoDetailsPageState extends State<VideoDetailsPage>
                       Center(
                         child: Text(
                           "Emty",
-                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                       ReviewsTabs(),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
